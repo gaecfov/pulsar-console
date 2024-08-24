@@ -1,19 +1,21 @@
 <script setup>
 import TopicConsumer from '@/views/topic/TopicConsumer.vue';
 import MetricCard from '@/components/MetricCard.vue';
-import {useConfirm} from 'primevue/useconfirm';
-import {skipAllMessage, skipMessage} from '@/service/TopicService';
+import { useConfirm } from 'primevue/useconfirm';
+import { skipAllMessage, skipMessage } from '@/service/TopicService';
 import toastUtil from '@/util/toast-util';
-import {formatRate} from '@/util/formatter';
-import {useI18n} from "vue-i18n";
+import { formatRate } from '@/util/formatter';
+import { useI18n } from 'vue-i18n';
+import { useDialog } from 'primevue/usedialog';
+import PeekMessages from '@/views/topic/PeekMessages.vue';
 
-const {t} = useI18n()
+const { t } = useI18n();
 const stats = inject('topic-stats');
 const topic = inject('topic');
 const subscriptions = computed(() => {
   if (stats.value.subscriptions) {
     return Object.keys(stats.value.subscriptions).map((x) => {
-      return {subscription: x, ...stats.value.subscriptions[x]};
+      return { subscription: x, ...stats.value.subscriptions[x] };
     });
   }
   return [];
@@ -48,6 +50,24 @@ const confirmSkipMessage = (event, sub) => {
 const isOnline = (sub) => {
   return sub.consumers && sub.consumers.length > 0;
 };
+
+const dialog = useDialog();
+const showPeekMessages = (subscription) => {
+  dialog.open(PeekMessages, {
+    props: {
+      header: t('view.topic-stats.peek-messages.title'),
+      modal: true,
+      maximizable: true,
+      style: {
+        height: '70dvh',
+        width: '50dvw'
+      }
+    },
+    data: {
+      topic, subscription
+    }
+  });
+};
 </script>
 
 <template>
@@ -57,7 +77,7 @@ const isOnline = (sub) => {
         <label for="skipNum" class="font-bold block mb-2"> {{
             $t('confirm.message.skip-message-num')
           }} </label>
-        <InputNumber v-model="skipNum" inputId="skipNum" fluid/>
+        <InputNumber v-model="skipNum" inputId="skipNum" fluid />
       </div>
     </template>
   </ConfirmPopup>
@@ -83,6 +103,8 @@ const isOnline = (sub) => {
                           @click="confirmSkipMessage($event, item)"></Button>
                   <Button text :label="$t('view.topic-stats.subscription.skip-all')" size="small"
                           @click="confirmSkipAllMessage($event, item)"></Button>
+                  <Button text :label="$t('view.topic-stats.subscription.peek')" size="small"
+                          @click="showPeekMessages(item.subscription)"></Button>
                 </template>
               </MetricCard>
               <MetricCard title="messageAckRate" :value="formatRate(item.messageAckRate)"

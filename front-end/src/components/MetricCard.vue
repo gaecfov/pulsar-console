@@ -1,4 +1,6 @@
 <script setup>
+import { isNull } from '@/util/assert';
+
 const props = defineProps({
   label: String,
   title: String,
@@ -20,7 +22,7 @@ const props = defineProps({
 const emit = defineEmits(['edit', 'clear', 'submit']);
 
 const isNeedShow = (value) => {
-  return value !== undefined && value !== '';
+  return !isNull(value) && value !== '';
 };
 const editing = ref(false);
 const editingValue = ref(props.value);

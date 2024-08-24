@@ -78,3 +78,7 @@ export const skipMessage = (topic, subName, numMessages) => {
 export const skipAllMessage = (topic, subName) => {
   return adminApi.post(`/${topic.persistence}/${topic.tenant}/${topic.namespace}/${topic.topicName}/subscription/${subName}/skip_all`);
 };
+
+export const peekMessages = (topic, subName,num) => {
+  return adminApi.get(`/${topic.persistence}/${topic.tenant}/${topic.namespace}/${topic.topicName}/subscription/${subName}/position/${num}`);
+};
