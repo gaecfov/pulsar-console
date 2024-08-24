@@ -1,5 +1,5 @@
 # 使用官方的 OpenJDK 作为基础镜像
-FROM openjdk:17-jdk-alpine
+FROM azul/zulu-openjdk-alpine:17-latest
 
 # 设定应用程序的工作目录
 WORKDIR /pulsar-console
