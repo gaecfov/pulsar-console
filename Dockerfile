@@ -4,9 +4,8 @@ FROM openjdk:17-jdk-alpine
 # 设定应用程序的工作目录
 WORKDIR /pulsar-console
 
-# 将 Spring Boot 应用的 JAR 文件复制到容器中
-# 假设你的 JAR 文件在当前目录下，并命名为 app.jar
-COPY target/pulsar-console-0.0.1-alpha.jar /pulsar-console/app.jar
+# 将本地文件添加到容器中
+COPY pulsar-console/target/pulsar-console.jar /pulsar-console/app.jar
 
 # 暴露 Spring Boot 应用的端口（通常为 8080）
 EXPOSE 8080

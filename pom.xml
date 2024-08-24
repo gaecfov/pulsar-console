@@ -91,7 +91,7 @@
   </dependencies>
 
   <build>
-    <finalName>pulsar-console-0.0.1-alpha</finalName>
+    <finalName>pulsar-console</finalName>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
