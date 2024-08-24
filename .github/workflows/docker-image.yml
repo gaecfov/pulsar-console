@@ -34,3 +34,11 @@ jobs:
       run: mvn clean package -DskipTest
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag gaecfovdocker:pulsar-console-$(date +%s)
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ docker.USERNAME }}
+        password: ${{ docker.TOKEN }}
+    - name: Push Image
+      run: docker push gaecfovdocker:pulsar-console-$(date +%s)
