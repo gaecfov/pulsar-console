@@ -1,5 +1,5 @@
 <script setup>
-defineProps(['title', 'icon', 'value', 'severity', 'unit']);
+defineProps(['label','title', 'icon', 'value', 'severity', 'unit']);
 </script>
 <template>
   <Chip class="text-sm">
@@ -8,6 +8,7 @@ defineProps(['title', 'icon', 'value', 'severity', 'unit']);
     </slot>
     <slot name="title">
       <span v-if="title">{{ $t(title) }}</span>
+      <span v-else>{{ label }}</span>
     </slot>
     <Badge :value="value" :severity="severity"></Badge>
     <slot name="unit">
