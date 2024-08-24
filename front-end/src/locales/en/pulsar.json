@@ -4,6 +4,7 @@
   "msgRateOut": "Message Egress Rate",
   "msgThroughputOut": "Message Egress Throughput",
   "averageMsgSize": "Average Message Size",
+  "storageSize": "Storage Size",
   "producer": "Producer",
   "publishers": "Publishers",
   "subscription": "Subscription",
