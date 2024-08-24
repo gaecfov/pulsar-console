@@ -1,0 +1,24 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: install front-end
+      run: pnpm -F ./front-end install
+    - name: build front-end
+      run: pnpm -F ./front-end build
+    - name: build back-end
+      run: mvn clean package -DskipTest
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag gaecfovdocker:pulsar-console-$(date +%s)
