@@ -2,7 +2,7 @@
 
 # Introduction
 
-Pulsar Console is a UI console for Pulsar based on the Pulsar Admin REST API.
+Pulsar Console is a web-based GUI management tool for managing and monitoring Pulsar.
 
 ## Key Features
 
