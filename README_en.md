@@ -58,3 +58,10 @@ mvn clean package -DskipTests
 # 3. Run the JAR package
 java -jar target/pulsar-console-[version].jar
 ```
+## Login Account
+
+The app will check once to see if an admin account exists. If not, the admin account will be created automatically and the password will be printed in the log
+```
+grep superuser logs/app.log
+```
+
