@@ -1,0 +1,11 @@
+{
+  "menu.instance": "Instance",
+  "menu.cluster": "Cluster",
+  "menu.tenant": "Tenant",
+  "menu.namespace": "Namespace",
+  "menu.broker": "Broker",
+  "menu.topic": "Topic",
+  "menu.user": "User",
+  "menu.pulsar": "Pulsar",
+  "menu.system": "System"
+}

@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: pulsar-console
+  datasource:
+    url: ${PC_JDBC_URL:jdbc:h2:file:${DB_H2_FILE:./pulsar-console}}
+    driver-class-name: ${PC_JDBC_DRIVER_CLASS_NAME:org.h2.Driver}
+    username: ${PC_JDBC_USERNAME:pulsar}
+    password: ${PC_JDBC_PASSWORD:pulsar}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
