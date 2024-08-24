@@ -34,7 +34,7 @@ jobs:
       run: mvn clean package -DskipTest
       
     - name: Show folder
-      run: ls /
+      run: ls {{defaultContext}}
     
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
@@ -49,4 +49,5 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         push: true
+        context: "{{defaultContext}}"
         tags: gaecfovdocker/pulsar-console:latest
