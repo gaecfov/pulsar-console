@@ -48,6 +48,27 @@ mvn clean package -DskipTests
 # 3. 执行jar 包
 java -jar target/pulsar-console-[version].jar
 ```
+
+## Docker
+```
+docker run -d \
+--name pulsar-console \
+-p 8080:8080 \
+gaecfovdocker/pulsar-console:latest
+```
+
+### 自定义数据库
+```shell
+docker run -d \
+  --name pulsar-console \
+  -e PC_JDBC_URL= \
+  -e PC_JDBC_DRIVER_CLASS_NAME= \
+  -e PC_JDBC_USERNAME= \
+  -e PC_JDBC_PASSWORD= \
+  -p 8080:8080 \
+  gaecfovdocker/pulsar-console:latest
+```
+
 # 登录账号
 应用启动会检测一次是否存在 admin 账号，如果没有会自动创建，密码在日志中会打印
 ```

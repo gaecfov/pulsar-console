@@ -58,6 +58,27 @@ mvn clean package -DskipTests
 # 3. Run the JAR package
 java -jar target/pulsar-console-[version].jar
 ```
+
+## Docker
+```
+docker run -d \
+--name pulsar-console \
+-p 8080:8080 \
+gaecfovdocker/pulsar-console:latest
+```
+
+### Custom Database
+```shell
+docker run -d \
+  --name pulsar-console \
+  -e PC_JDBC_URL= \
+  -e PC_JDBC_DRIVER_CLASS_NAME= \
+  -e PC_JDBC_USERNAME= \
+  -e PC_JDBC_PASSWORD= \
+  -p 8080:8080 \
+  gaecfovdocker/pulsar-console:latest
+```
+
 ## Login Account
 
 The app will check once to see if an admin account exists. If not, the admin account will be created automatically and the password will be printed in the log
