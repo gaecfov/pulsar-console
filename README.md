@@ -53,3 +53,7 @@ java -jar target/pulsar-console-[version].jar
 ```
 grep superuser logs/app.log
 ```
+![login.png](docs/images/login.png)
+![broker.png](docs/images/broker.png)
+![topic_stats.png](docs/images/topic_stats.png)
+![subscriptions.png](docs/images/subscriptions.png)
