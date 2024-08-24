@@ -5,7 +5,7 @@ FROM openjdk:17-jdk-alpine
 WORKDIR /pulsar-console
 
 # 将本地文件添加到容器中
-COPY ./target/pulsar-console.jar /pulsar-console/app.jar
+COPY target/pulsar-console.jar /pulsar-console/app.jar
 
 # 暴露 Spring Boot 应用的端口（通常为 8080）
 EXPOSE 8080
