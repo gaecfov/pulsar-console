@@ -1,12 +1,19 @@
 <script setup>
-import { getNamespaceConfig, unloadNamespace } from '@/service/NamespaceService';
+import {
+  getNamespacePolicies,
+  removeNamespaceMessageTTL,
+  setNamespaceMessageTTL,
+  unloadNamespace
+} from '@/service/NamespaceService';
 import { useConfirm } from 'primevue/useconfirm';
 import { deconstructionNamespace } from '@/util/namespace-util';
 import toastUtil from '@/util/toast-util';
 import { useDialog } from 'primevue/usedialog';
 import JsonViewer from '@/components/JsonViewer.vue';
-import NamespacePolicy from '@/views/namespace/NamespacePolicy.vue';
+import NamespaceAdvancePolicy from '@/views/namespace/NamespaceAdvancePolicy.vue';
 import { useI18n } from 'vue-i18n';
+import MetricCard from '@/components/MetricCard.vue';
+import Metric from '@/components/Metric.vue';
 
 const { t } = useI18n();
 const dialog = useDialog();
@@ -14,11 +21,12 @@ const confirm = useConfirm();
 const dialogRef = inject('dialogRef');
 const namespace = deconstructionNamespace(dialogRef.value.data.namespace);
 
-const stats = ref({});
-provide('namespace-stats', stats);
+const policies = ref({});
+provide('namespace-policies', policies);
+provide('namespace', namespace);
 onMounted(() => {
-  getNamespaceConfig(namespace.tenant, namespace.namespace).then((res) => {
-    stats.value = res.data;
+  getNamespacePolicies(namespace.tenant, namespace.namespace).then((res) => {
+    policies.value = res.data;
   });
 });
 const confirmUnload = (event) => {
@@ -52,7 +60,19 @@ const showJson = () => {
         height: '80dvh'
       }
     },
-    data: stats.value
+    data: policies.value
+  });
+};
+const setTTL = (ttlSeconds) => {
+  setNamespaceMessageTTL(namespace.tenant, namespace.namespace, ttlSeconds).then(() => {
+    policies.value.message_ttl_in_seconds = ttlSeconds;
+    toastUtil.success();
+  });
+};
+const clearTTL = () => {
+  removeNamespaceMessageTTL(namespace.tenant, namespace.namespace).then(() => {
+    policies.value.message_ttl_in_seconds = undefined;
+    toastUtil.success();
   });
 };
 </script>
@@ -62,8 +82,8 @@ const showJson = () => {
     <Tabs value="base">
       <div class="flex justify-between">
         <TabList>
-          <Tab value="base">{{ $t('view.namespace.stats.base') }}</Tab>
-          <Tab value="policy">{{ $t('view.namespace.stats.policy') }}</Tab>
+          <Tab value="base">{{ $t('view.namespace.policies.common') }}</Tab>
+          <Tab value="policy">{{ $t('view.namespace.policies.advance') }}</Tab>
         </TabList>
         <div class="flex items-center gap-2">
           <Button icon="pi pi-code" @click="showJson"></Button>
@@ -73,26 +93,35 @@ const showJson = () => {
         <TabPanel value="base">
           <Panel>
             <div class="grid grid-cols-4 gap-4">
-              <MetricCard class="bg-pc-main" title="encryption_required" :value="stats.encryption_required">
+              <MetricCard title="message_ttl_in_seconds" icon="pi-clock" class="bg-pc-main" editable
+                          show-clear @clear="clearTTL"
+                          :value="policies.message_ttl_in_seconds" @submit="setTTL">
+                <template #value="{data}">
+                  <Metric v-if="data" icon="pi-clock" :value="data" unit="sec"></Metric>
+                </template>
+              </MetricCard>
+
+              <MetricCard class="bg-pc-main" title="encryption_required"
+                          :value="policies.encryption_required">
               </MetricCard>
               <MetricCard class="bg-pc-main" title="subscription_auth_mode"
-                          :value="stats.subscription_auth_mode"></MetricCard>
+                          :value="policies.subscription_auth_mode"></MetricCard>
               <MetricCard class="bg-pc-main" title="offload_threshold"
-                          :value="stats.offload_threshold"></MetricCard>
+                          :value="policies.offload_threshold"></MetricCard>
               <MetricCard class="bg-pc-main" title="offload_threshold_in_seconds"
-                          :value="stats.offload_threshold_in_seconds"></MetricCard>
+                          :value="policies.offload_threshold_in_seconds"></MetricCard>
               <MetricCard class="bg-pc-main" title="schema_compatibility_strategy"
-                          :value="stats.schema_compatibility_strategy"></MetricCard>
+                          :value="policies.schema_compatibility_strategy"></MetricCard>
               <MetricCard class="bg-pc-main" title="is_allow_auto_update_schema"
-                          :value="stats.is_allow_auto_update_schema">
+                          :value="policies.is_allow_auto_update_schema">
               </MetricCard>
               <MetricCard class="bg-pc-main" title="schema_validation_enforced"
-                          :value="stats.schema_validation_enforced">
+                          :value="policies.schema_validation_enforced">
               </MetricCard>
               <MetricCard class="bg-pc-main" title="subscription_types_enabled"
-                          :value="stats.subscription_types_enabled">
+                          :value="policies.subscription_types_enabled">
                 <template #value="{data}">
-                  {{ data}}
+                  {{ data }}
                 </template>
               </MetricCard>
             </div>
@@ -105,7 +134,7 @@ const showJson = () => {
                       @click="confirmUnload" />
             </template>
           </Toolbar>
-          <NamespacePolicy></NamespacePolicy>
+          <NamespaceAdvancePolicy></NamespaceAdvancePolicy>
         </TabPanel>
       </TabPanels>
     </Tabs>

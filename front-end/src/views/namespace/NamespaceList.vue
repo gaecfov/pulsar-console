@@ -1,6 +1,5 @@
 <script setup>
 import TenantSelect from '@/components/TenantSelect.vue';
-import NamespaceStats from '@/views/namespace/NamespaceStats.vue';
 import { useDialog } from 'primevue/usedialog';
 import { useNamespaceStore } from '@/views/namespace/useNamespaceStore';
 import { FilterMatchMode } from '@primevue/core/api';
@@ -8,6 +7,7 @@ import NamespaceForm from '@/views/namespace/NamespaceForm.vue';
 import ConfirmDeleteButton from '@/components/ConfirmDeleteButton.vue';
 import { deconstructionNamespace } from '@/util/namespace-util';
 import NamespaceAnalysis from '@/views/namespace/NamespaceAnalysis.vue';
+import NamespacePolicies from '@/views/namespace/NamespacePolicies.vue';
 
 const { t } = useI18n();
 const dialog = useDialog();
@@ -34,10 +34,10 @@ const showNamespaceForm = () => {
   });
 };
 
-const showNamespaceStats = (namespace) => {
-  dialog.open(NamespaceStats, {
+const showNamespacePolicies = (namespace) => {
+  dialog.open(NamespacePolicies, {
     props: {
-      header: t('view.namespace.stats.title'),
+      header: t('view.namespace.policies.title'),
       modal: true,
       style: {
         width: '70dvw',
@@ -99,7 +99,7 @@ const deleteNamespace = (fullNamespace) => {
         </template>
         <Column :header="$t('name')">
           <template #body="{ data }">
-            <Button link @click="showNamespaceStats(data)" :label="data.namespaceName"></Button>
+            <Button link @click="showNamespacePolicies(data)" :label="data.namespaceName"></Button>
           </template>
         </Column>
         <Column class="w-60">
