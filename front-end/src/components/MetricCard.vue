@@ -1,5 +1,7 @@
 <script setup>
 import { isNull } from '@/util/assert';
+import { useConfirm } from 'primevue/useconfirm';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   label: String,
@@ -19,6 +21,8 @@ const props = defineProps({
     default: false
   }
 });
+
+const { t } = useI18n();
 const emit = defineEmits(['edit', 'clear', 'submit']);
 
 const isNeedShow = (value) => {
@@ -44,6 +48,27 @@ const cancelEditing = () => {
 watch(() => props.value, (val) => {
   editingValue.value = val;
 });
+
+const confirm = useConfirm();
+const confirmPopup = (event) => {
+  confirm.require({
+    target: event.currentTarget,
+    message: t('confirm.message.clear'),
+    icon: 'pi pi-info-circle',
+    rejectProps: {
+      label: t('cancel'),
+      severity: 'secondary',
+      outlined: true
+    },
+    acceptProps: {
+      label: t('clear'),
+      severity: 'danger'
+    },
+    accept: () => {
+      emit('clear');
+    }
+  });
+};
 </script>
 <template>
   <div v-bind="$attrs" class="card flex flex-col justify-between p-4 m-0">
@@ -85,8 +110,9 @@ watch(() => props.value, (val) => {
     <div class="flex gap-x-2" v-show="!editing">
       <Button size="small" v-tooltip="$t('edit')" icon="pi pi-file-edit" v-if="editable" text
               @click="edit"></Button>
-      <Button size="small" v-tooltip="$t('clear')" icon="pi pi-eraser" v-if="showClear" text
-              @click="emit('clear')"></Button>
+      <Button size="small" v-tooltip="$t('clear')" icon="pi pi-eraser" severity="warn"
+              v-if="showClear" text
+              @click="confirmPopup"></Button>
       <slot name="action"></slot>
     </div>
   </div>

@@ -8,6 +8,7 @@
   "common.keywords.search": "关键字搜索",
   "common.input.placeholder": "请输入{0}",
   "confirm.message.delete": "确认要删除此信息吗？",
+  "confirm.message.clear": "确认要清除吗？",
   "confirm.message.unload": "确认要卸载吗?",
   "confirm.message.skip-message-num": "跳过消息数量",
   "confirm.message.skip-all-message": "确认要跳过所有消息吗？",
