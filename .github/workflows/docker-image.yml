@@ -32,13 +32,18 @@ jobs:
       run: pnpm -F ./front-end build
     - name: build back-end
       run: mvn clean package -DskipTest
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag gaecfovdocker:pulsar-console-$(date +%s)
-
+      
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      
     - name: Log in to Docker Hub
-      uses: docker/login-action@v2
+      uses: docker/login-action@v3
       with:
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.TOKEN }}
-    - name: Push Image
-      run: docker push gaecfovdocker:pulsar-console-$(date +%s)
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        
+    - name: Build and push
+      uses: docker/build-push-action@v6
+      with:
+        push: true
+        tags: gaecfovdocker/pulsar-console:latest
