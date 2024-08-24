@@ -81,5 +81,6 @@
   "publishMaxMessageRate": "Publish Max Message Rate",
   "latency_stats_sample_rate": "Latency Stats Sample Rate",
   "properties": "Properties",
-  "migrated": "Migrated"
+  "migrated": "Migrated",
+  "latency_policies_sample_rate": "Latency Policies Sample Rate"
 }

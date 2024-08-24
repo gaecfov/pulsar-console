@@ -81,5 +81,6 @@
   "publishMaxMessageRate": "最大发布消息速率",
   "latency_stats_sample_rate": "延迟统计采样率",
   "properties": "属性",
-  "migrated": "已迁移"
+  "migrated": "已迁移",
+  "latency_policies_sample_rate": "延迟策略采样率"
 }
