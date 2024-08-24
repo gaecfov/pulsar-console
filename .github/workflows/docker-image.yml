@@ -34,7 +34,7 @@ jobs:
       run: mvn clean package -DskipTest
       
     - name: Show folder
-      run: ls target/
+      run: ls /
     
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
