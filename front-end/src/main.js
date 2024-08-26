@@ -15,6 +15,8 @@ import '@/assets/styles.scss';
 import '@/assets/tailwind.css';
 import { getLocale, i18n, locale } from '@/i18n.config';
 
+import permission from '@/directives/permission';
+
 const app = createApp(App);
 const pinia = createPinia();
 app
@@ -33,6 +35,7 @@ app
   .use(ToastService)
   .use(DialogService)
   .use(ConfirmationService)
+  .directive('permission', permission)
   .mount('#app');
 
 adminApi.$toast = app.config.globalProperties.$toast;
