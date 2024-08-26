@@ -6,6 +6,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +37,12 @@ public class UserController {
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   public List<User> listUsers() {
     return userService.listAll();
+  }
+
+  @DeleteMapping("/{userId}")
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+  public void deleteUser(@PathVariable("userId") Long userId) {
+    userService.remove(userId);
   }
 
   @PutMapping("/{userId}/password")
