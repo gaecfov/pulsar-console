@@ -70,7 +70,7 @@ const configurationMenus = [
       </div>
       <div class="flex justify-between gap-6 mt-6">
         <div>
-          <Button size="small" severity="warn" icon="pi pi-power-off" v-tooltip="$t('view.broker.list.shutdown')"></Button>
+          <Button v-permission="'admin'" size="small" severity="warn" icon="pi pi-power-off" v-tooltip="$t('view.broker.list.shutdown')"></Button>
         </div>
         <div class="flex gap-2">
           <Button icon="pi pi-desktop" severity="secondary" :label="$t('stats')" @click="showBrokerStats" />

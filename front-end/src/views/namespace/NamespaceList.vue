@@ -108,7 +108,7 @@ const deleteNamespace = (fullNamespace) => {
             <Button icon="pi pi-chart-pie" outlined class="mr-2"
                     v-tooltip="$t('view.namespace.analysis')"
                     @click="showNamespaceAnalysis(data)" />
-            <ConfirmDeleteButton
+            <ConfirmDeleteButton v-permission="'admin'"
               @delete="deleteNamespace(data.namespaceName)"></ConfirmDeleteButton>
           </template>
         </Column>

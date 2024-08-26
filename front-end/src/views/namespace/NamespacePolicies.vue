@@ -130,7 +130,7 @@ const clearTTL = () => {
         <TabPanel value="policy">
           <Toolbar class="mb-6">
             <template #start>
-              <Button :label="$t('unload')" icon="pi pi-refresh" severity="warn"
+              <Button v-permission="'admin'" :label="$t('unload')" icon="pi pi-refresh" severity="warn"
                       @click="confirmUnload" />
             </template>
           </Toolbar>

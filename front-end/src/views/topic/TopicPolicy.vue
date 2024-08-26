@@ -228,6 +228,7 @@ const clearPersistenceConfiguration = () => {
     <div class="flex flex-col gap-y-4">
       <div class="flex gap-2">
         <Button
+          v-permission="'admin'"
           severity="warn"
           size="small"
           :label="$t('unload')"

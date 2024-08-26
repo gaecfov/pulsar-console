@@ -42,7 +42,7 @@ const showInstanceForm = () => {
         <Column class="w-60">
           <template #body="slotScope">
             <Button icon="pi pi-file-edit" outlined class="mr-2" />
-            <ConfirmDeleteButton @delete="store.delInstance(slotScope.data.id)"></ConfirmDeleteButton>
+            <ConfirmDeleteButton v-permission="'admin'" @delete="store.delInstance(slotScope.data.id)"></ConfirmDeleteButton>
           </template>
         </Column>
       </DataTable>
