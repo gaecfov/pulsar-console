@@ -53,6 +53,7 @@ const showNamespaceAnalysis = (namespace) => {
     props: {
       header: `${namespace.namespaceName}`,
       modal: true,
+      closeOnEscape: false,
       style: {
         width: '70dvw',
         height: '80dvh'

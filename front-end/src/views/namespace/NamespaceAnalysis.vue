@@ -1,10 +1,14 @@
 <script setup>
-import {getTopicStats, listTopics} from '@/service/TopicService';
-import {analyseTopic, deconstructionNamespace} from '@/util/namespace-util';
-import {deconstructionTopic, isSystemTopic} from '@/util/topic-util';
-import {FilterMatchMode} from '@primevue/core/api';
-import {formatStorageSize} from '@/util/formatter';
+import { getTopicStats, listTopics } from '@/service/TopicService';
+import { analyseTopic, deconstructionNamespace } from '@/util/namespace-util';
+import { deconstructionTopic, isSystemTopic } from '@/util/topic-util';
+import { FilterMatchMode } from '@primevue/core/api';
+import { formatStorageSize } from '@/util/formatter';
+import { useDialog } from 'primevue/usedialog';
+import TopicStats from '@/views/topic/TopicStats.vue';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n();
 const dialogRef = inject('dialogRef');
 const namespace = deconstructionNamespace(dialogRef.value.data.namespace);
 const loading = ref(false);
@@ -45,8 +49,26 @@ onMounted(() => {
     });
 });
 const filters = ref({
-  global: {value: null, matchMode: FilterMatchMode.CONTAINS}
+  global: { value: null, matchMode: FilterMatchMode.CONTAINS }
 });
+
+const dialog = useDialog();
+const showTopicStats = (topic) => {
+  dialog.open(TopicStats, {
+    props: {
+      header: t('view.topic-stats.title'),
+      modal: true,
+      maximizable: true,
+      style: {
+        width: '60dvw',
+        height: '80dvh'
+      }
+    },
+    data: {
+      topic: topic
+    }
+  });
+};
 </script>
 
 <template>
@@ -65,14 +87,19 @@ const filters = ref({
             <div class="flex justify-end">
               <IconField>
                 <InputIcon>
-                  <i class="pi pi-search"/>
+                  <i class="pi pi-search" />
                 </InputIcon>
                 <InputText v-model="filters['global'].value"
-                           :placeholder="$t('common.keywords.search')"/>
+                           :placeholder="$t('common.keywords.search')" />
               </IconField>
             </div>
           </template>
-          <Column field="topic.topicName" :header="$t('topic')"></Column>
+          <Column field="topic.topicName" :header="$t('topic')">
+            <template #body="{data}">
+              <Button link @click="showTopicStats(data.topic)"
+                      :label="data.topic.topicName"></Button>
+            </template>
+          </Column>
           <Column field="subscription" :header="$t('subscription')"></Column>
           <Column field="backlog" :header="$t('backlog')" :sortable="true"></Column>
         </DataTable>
@@ -86,14 +113,19 @@ const filters = ref({
             <div class="flex justify-end">
               <IconField>
                 <InputIcon>
-                  <i class="pi pi-search"/>
+                  <i class="pi pi-search" />
                 </InputIcon>
                 <InputText v-model="filters['global'].value"
-                           :placeholder="$t('common.keywords.search')"/>
+                           :placeholder="$t('common.keywords.search')" />
               </IconField>
             </div>
           </template>
-          <Column field="topic.topicName" :header="$t('topic')"></Column>
+          <Column field="topic.topicName" :header="$t('topic')">
+            <template #body="{data}">
+              <Button link @click="showTopicStats(data.topic)"
+                      :label="data.topic.topicName"></Button>
+            </template>
+          </Column>
           <Column field="storageSize" :header="$t('storageSize')" :sortable="true">
             <template #body="{data}">
               {{ formatStorageSize(data.storageSize) }}
