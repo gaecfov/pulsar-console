@@ -9,7 +9,7 @@ import { useConfirm } from 'primevue/useconfirm';
 import { deconstructionNamespace } from '@/util/namespace-util';
 import toastUtil from '@/util/toast-util';
 import { useDialog } from 'primevue/usedialog';
-import JsonViewer from '@/components/JsonViewer.vue';
+import JsonViewerDialog from '@/components/JsonViewerDialog.vue';
 import NamespaceAdvancePolicy from '@/views/namespace/NamespaceAdvancePolicy.vue';
 import { useI18n } from 'vue-i18n';
 import MetricCard from '@/components/MetricCard.vue';
@@ -51,7 +51,7 @@ const confirmUnload = (event) => {
   });
 };
 const showJson = () => {
-  dialog.open(JsonViewer, {
+  dialog.open(JsonViewerDialog, {
     props: {
       header: 'JSON',
       modal: true,

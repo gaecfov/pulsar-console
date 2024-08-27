@@ -82,5 +82,10 @@
   "latency_stats_sample_rate": "Latency Stats Sample Rate",
   "properties": "Properties",
   "migrated": "Migrated",
-  "latency_policies_sample_rate": "Latency Policies Sample Rate"
+  "latency_policies_sample_rate": "Latency Policies Sample Rate",
+  "messagePosition": "Message Position",
+  "x-pulsar-publish-time":"Publish Time",
+  "x-pulsar-producer-name":"Producer Name",
+  "x-pulsar-batch-size":"Batch Size",
+  "x-pulsar-num-batch-message":"Num Batch Message"
 }

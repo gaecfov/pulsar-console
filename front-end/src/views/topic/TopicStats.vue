@@ -7,7 +7,7 @@ import SimplePublishers from '@/views/topic/SimplePublishers.vue';
 import SimpleSubscriptions from '@/views/topic/SimpleSubscriptions.vue';
 import TopicPolicy from '@/views/topic/TopicPolicy.vue';
 import { useDialog } from 'primevue/usedialog';
-import JsonViewer from '@/components/JsonViewer.vue';
+import JsonViewerDialog from '@/components/JsonViewerDialog.vue';
 
 const dialogRef = inject('dialogRef');
 const topic = dialogRef.value.data.topic;
@@ -47,7 +47,7 @@ const changeAutoRefresh = () => {
 
 const dialog = useDialog();
 const showJson = () => {
-  dialog.open(JsonViewer, {
+  dialog.open(JsonViewerDialog, {
     props: {
       header: 'JSON',
       modal: true,

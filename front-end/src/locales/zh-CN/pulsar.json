@@ -82,5 +82,10 @@
   "latency_stats_sample_rate": "延迟统计采样率",
   "properties": "属性",
   "migrated": "已迁移",
-  "latency_policies_sample_rate": "延迟策略采样率"
+  "latency_policies_sample_rate": "延迟策略采样率",
+  "messagePosition": "消息位置",
+  "x-pulsar-publish-time":"发送时间",
+  "x-pulsar-producer-name":"生产者",
+  "x-pulsar-batch-size":"批大小",
+  "x-pulsar-num-batch-message":"消息数量"
 }
