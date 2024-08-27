@@ -39,5 +39,6 @@
   "username": "Username",
   "password": "Password",
   "sec": "Sec",
-  "minutes": "Minutes"
+  "minutes": "Minutes",
+  "none": "None"
 }

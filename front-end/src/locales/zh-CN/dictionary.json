@@ -39,5 +39,6 @@
   "username": "用户名",
   "password": "密码",
   "sec": "秒",
-  "minutes": "分钟"
+  "minutes": "分钟",
+  "none": "空"
 }

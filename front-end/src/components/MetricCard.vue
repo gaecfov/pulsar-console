@@ -1,5 +1,5 @@
 <script setup>
-import { isNull } from '@/util/assert';
+import { isEmpty, isNull } from '@/util/assert';
 import { useConfirm } from 'primevue/useconfirm';
 import { useI18n } from 'vue-i18n';
 
@@ -85,20 +85,24 @@ const confirmPopup = (event) => {
           </slot>
         </span>
         <div class="text-surface-700 dark:text-surface-100 font-medium text-md">
-          <slot name="editor" v-if="editing">
-            <div class="flex gap-2 items-center">
-
-              <InputNumber v-if="valueType === 'number'" v-model="editingValue" />
-              <InputText v-if="valueType === 'string'" v-model="editingValue" />
-              <ToggleButton v-if="valueType === 'boolean'" v-model="editingValue" />
-              <Button icon="pi pi-save" text @click="submitValue"></Button>
-              <Button icon="pi pi-times-circle" text severity="warn"
-                      @click="cancelEditing"></Button>
-            </div>
-          </slot>
-          <slot name="value" v-else :data="value">
-            <Badge v-if="isNeedShow(value)">{{ value }}</Badge>
-          </slot>
+          <template v-if="editing">
+            <slot name="editor">
+              <div class="flex gap-2 items-center">
+                <InputNumber v-if="valueType === 'number'" v-model="editingValue" />
+                <InputText v-if="valueType === 'string'" v-model="editingValue" />
+                <ToggleButton v-if="valueType === 'boolean'" v-model="editingValue" />
+                <Button icon="pi pi-save" text @click="submitValue"></Button>
+                <Button icon="pi pi-times-circle" text severity="warn"
+                        @click="cancelEditing"></Button>
+              </div>
+            </slot>
+          </template>
+          <template v-else>
+            <slot name="value" :data="value">
+              <span class="text-current " v-if="isEmpty(value)">{{ $t('none') }}</span>
+              <Badge v-else v-if="isNeedShow(value)">{{ value }}</Badge>
+            </slot>
+          </template>
         </div>
       </div>
       <slot name="icon">

@@ -1,6 +1,6 @@
 <script setup>
 import { getTenantConfig } from '@/service/TenantService';
-import Description from '@/components/Description.vue';
+import MetricCard from '@/components/MetricCard.vue';
 
 const dialogRef = inject('dialogRef');
 const stats = ref({});
@@ -14,8 +14,21 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="grid gap-2">
-    <Description title="adminRoles" :content="stats.adminRoles"></Description>
-    <Description title="allowedClusters" :content="stats.allowedClusters"></Description>
+  <div class="flex card p-4 flex-col bg-pc-main gap-4">
+    <MetricCard title="adminRoles" :value="stats.adminRoles">
+      <template #value="{data}">
+        <div class="flex gap-2">
+          <Chip v-for="(item,index) in data" :key="index">{{ item }}</Chip>
+        </div>
+      </template>
+    </MetricCard>
+
+    <MetricCard title="allowedClusters" :value="stats.allowedClusters">
+      <template #value="{data}">
+        <div class="flex gap-2">
+          <Chip v-for="(item,index) in data" :key="index">{{ item }}</Chip>
+        </div>
+      </template>
+    </MetricCard>
   </div>
 </template>

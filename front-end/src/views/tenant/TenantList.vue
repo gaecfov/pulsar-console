@@ -33,8 +33,8 @@ const showTenantStats = (tenant) => {
       header: `${tenant.tenantName}`,
       modal: true,
       style: {
-        width: '400px',
-        height: '300px'
+        width: '500px',
+        height: '400px'
       }
     },
     data: { tenant: tenant.tenantName }
