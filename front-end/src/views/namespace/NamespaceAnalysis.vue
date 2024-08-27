@@ -35,8 +35,8 @@ onMounted(() => {
           if (result.storageSize) {
             storageSizeBucket.push(result.storageSize);
           }
-          if (result.backlog) {
-            backlogBucket.push(result.backlog);
+          if (result.backlogs) {
+            backlogBucket.push(...result.backlogs);
           }
         });
         backlogList.value = backlogBucket;
