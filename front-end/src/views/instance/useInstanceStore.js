@@ -1,4 +1,8 @@
-import { createInstance, deleteInstance, listInstances } from '@/service/InstanceService';
+import {
+  createInstance,
+  deleteInstance,
+  listInstances
+} from '@/service/InstanceService';
 import toast from '@/util/toast-util';
 import { useGlobalStore } from '@/stroes/useGlobalStore';
 
@@ -12,8 +16,10 @@ export const useInstanceStore = defineStore('instance-store', () => {
       instances.value = res.data;
 
       const store = useGlobalStore();
-      if (!store.instanceId && res.data.length > 0) {
-        store.instanceId = res.data[0];
+      if (res.data.length > 0) {
+        if (!res.data.some(item => item.id === store.instanceId)) {
+          store.instanceId = res.data[0].id;
+        }
       }
       loading.value = false;
     });
