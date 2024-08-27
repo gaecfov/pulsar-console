@@ -2,7 +2,9 @@ import axios from 'axios';
 import adminApi from '@/util/pulsar-api';
 import { useGlobalStore } from '@/stroes/useGlobalStore';
 import router from '@/router';
+import { i18n } from '@/i18n.config';
 
+const { global } = i18n;
 const consoleApi = axios.create({
   baseURL: '/api',
   headers: {
@@ -33,7 +35,7 @@ consoleApi.interceptors.response.use(
       const message = error.response ? error.response.data : error.message;
       adminApi.$toast.add({
         severity: 'error',
-        summary: 'Request Failed',
+        summary: global.t('error.message.request-failed'),
         detail: message,
         life: 3000
       });

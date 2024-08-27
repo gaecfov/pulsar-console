@@ -12,6 +12,8 @@
   "confirm.message.unload": "Do you want to unload?",
   "confirm.message.skip-message-num": "Skip Message Num",
   "confirm.message.skip-all-message": "Do you want to skip all messages?",
+  "error.message.instance-id-required": "Please select a instance",
+  "error.message.request-failed": "Request Failed",
   "view.app-configurator.primary": "Primary",
   "view.app-configurator.surface": "Surface",
   "view.app-configurator.menu-mode": "Menu Mode",

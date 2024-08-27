@@ -12,6 +12,8 @@
   "confirm.message.unload": "确认要卸载吗?",
   "confirm.message.skip-message-num": "跳过消息数量",
   "confirm.message.skip-all-message": "确认要跳过所有消息吗？",
+  "error.message.instance-id-required": "请选择实例",
+  "error.message.request-failed": "请求失败",
   "view.auth.login.welcome": "Pulsar Console",
   "view.app-configurator.primary": "主色",
   "view.app-configurator.surface": "表面色",
