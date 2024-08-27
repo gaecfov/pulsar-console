@@ -39,19 +39,23 @@ const newRole = (event) => {
     <div class="flex flex-col gap-6">
       <div>
         <label for="name" class="block font-bold mb-3">{{ $t('name') }}</label>
-        <InputText id="name" v-model="tenant" fluid></InputText>
+        <InputText id="name" v-model="tenant" fluid required></InputText>
       </div>
       <div>
-        <label for="serviceUrl" class="block font-bold mb-3">adminRoles</label>
-        <div class="flex items-center gap-2">
-          <Chip v-for="(item, index) in tenantModel.adminRoles" :key="index" removable @remove="removeRole(item)">
+        <label for="serviceUrl" class="block font-bold mb-3">{{ $t('adminRoles') }} </label>
+        <div class="flex flex-wrap items-center gap-2">
+          <Chip v-for="(item, index) in tenantModel.adminRoles" :key="index" removable
+                @remove="removeRole(item)">
             {{ item }}
           </Chip>
-          <InputText v-model="role" @keydown.enter="newRole"></InputText>
+          <InputGroup style="width: 10rem">
+            <InputText v-model="role" @keydown.enter="newRole"></InputText>
+            <Button icon="pi pi-plus" @click="newRole" />
+          </InputGroup>
         </div>
       </div>
       <div>
-        <label for="webServiceUrl" class="block font-bold mb-3">allowedClusters</label>
+        <label for="webServiceUrl" class="block font-bold mb-3">{{ $t('allowedClusters') }} </label>
         <ClusterSelector v-model="tenantModel.allowedClusters" multiple></ClusterSelector>
       </div>
       <div>
