@@ -45,7 +45,7 @@
   "view.broker.list.shutdown": "Shutdown",
   "view.broker.card.internal-configuration": "Internal Configuration",
   "view.broker.card.runtime-configuration": "Runtime Configuration",
-  "view.broker.card.stats": "Stats",
+  "view.broker.card.stats": "Broker Stats",
   "view.topic.list.title": "Topics",
   "view.topic.list.new": "New Topic",
   "view.topic-stats.title": "Topic Stats",

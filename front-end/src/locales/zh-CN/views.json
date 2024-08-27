@@ -45,7 +45,7 @@
   "view.broker.list.shutdown": "优雅关闭",
   "view.broker.card.internal-configuration": "内部配置",
   "view.broker.card.runtime-configuration": "当前配置",
-  "view.broker.card.stats": "状态",
+  "view.broker.card.stats": "Broker 状态",
   "view.topic.list.title": "主题",
   "view.topic.list.new": "新增主题",
   "view.topic-stats.title": "主题状态",

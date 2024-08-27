@@ -22,52 +22,48 @@ onMounted(() => {
     </div>
     <div class="flex flex-col gap-4">
       <div class="grid grid-cols-6 gap-2">
-        <MetricCard>
-          <template #title>{{ $t('cpu') }}</template>
-          <template #value> {{ fixedNum(loadReport.cpu.usage) }}/{{ fixedNum(loadReport.cpu.limit) }} </template>
+        <MetricCard title="cpu">
+          <template #value>
+            <Badge>
+              {{ fixedNum(loadReport.cpu.usage) }}/{{ fixedNum(loadReport.cpu.limit) }}
+            </Badge>
+          </template>
         </MetricCard>
-        <MetricCard>
-          <template #title>{{ $t('memory') }}</template>
-          <template #value> {{ fixedNum(loadReport.memory.usage) }}/{{ fixedNum(loadReport.memory.limit) }} </template>
+        <MetricCard title="memory">
+          <template #value>
+            <Badge>{{ fixedNum(loadReport.memory.usage) }}/{{ fixedNum(
+              loadReport.memory.limit) }}
+            </Badge>
+          </template>
         </MetricCard>
-        <MetricCard>
-          <template #title>{{ $t('directMemory') }}</template>
-          <template #value> {{ fixedNum(loadReport.directMemory.usage) }}/{{ fixedNum(loadReport.directMemory.limit) }} </template>
+        <MetricCard title="directMemory" unit="MB">
+          <template #value>
+            <Badge>{{ fixedNum(loadReport.directMemory.usage) }}/{{ fixedNum(
+              loadReport.directMemory.limit) }}
+            </Badge>
+          </template>
         </MetricCard>
 
-        <MetricCard>
+        <MetricCard title="msgRateIn" :value="formatRate(loadReport.msgRateIn)">
           <template #title>{{ $t('msgRateIn') }}</template>
-          <template #value> {{ formatRate(loadReport.msgRateIn) }}</template>
         </MetricCard>
 
-        <MetricCard>
-          <template #title>{{ $t('msgRateOut') }}</template>
-          <template #value> {{ formatRate(loadReport.msgRateOut) }}</template>
+        <MetricCard title="msgRateOut" :value="formatRate(loadReport.msgRateOut)">
         </MetricCard>
 
-        <MetricCard>
-          <template #title>{{ $t('msgThroughputIn') }}</template>
-          <template #value> {{ formatThroughput(loadReport.msgThroughputIn) }}</template>
+        <MetricCard title="msgThroughputIn" :value="formatThroughput(loadReport.msgThroughputIn)">
         </MetricCard>
 
-        <MetricCard>
-          <template #title>{{ $t('msgThroughputOut') }}</template>
-          <template #value> {{ formatThroughput(loadReport.msgThroughputOut) }}</template>
+        <MetricCard title="msgThroughputOut" :value="formatThroughput(loadReport.msgThroughputOut)">
         </MetricCard>
 
-        <MetricCard>
-          <template #title>{{ $t('numTopics') }}</template>
-          <template #value> {{ loadReport.numTopics }}</template>
+        <MetricCard title="numTopics" :value="loadReport.numTopics">
         </MetricCard>
 
-        <MetricCard>
-          <template #title>{{ $t('numBundles') }}</template>
-          <template #value> {{ loadReport.numBundles }}</template>
+        <MetricCard title="numBundles" :value="loadReport.numBundles">
         </MetricCard>
 
-        <MetricCard>
-          <template #title>{{ $t('numConsumers') }}</template>
-          <template #value> {{ loadReport.numConsumers }}</template>
+        <MetricCard title="numConsumers" :value="loadReport.numConsumers">
         </MetricCard>
 
         <Panel class="col-span-6 p-0" toggleable :collapsed="bundlesCollapsed">

@@ -45,18 +45,19 @@ onMounted(() => {
   });
 });
 
-const configurationMenus = [
+const configurationMenus = ref([
   {
-    label: t('view.broker.card.runtime-configuration'),
+    label: 'view.broker.card.runtime-configuration',
     command: () => {
       showRuntimeConfiguration();
     }
   }
-];
+]);
 </script>
 
 <template>
-  <div class="p-4 border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded flex flex-col">
+  <div
+    class="p-4 border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded flex flex-col">
     <div>
       <div class="flex flex-row justify-between items-center gap-2">
         <div>
@@ -70,11 +71,22 @@ const configurationMenus = [
       </div>
       <div class="flex justify-between gap-6 mt-6">
         <div>
-          <Button v-permission="'admin'" size="small" severity="warn" icon="pi pi-power-off" v-tooltip="$t('view.broker.list.shutdown')"></Button>
+          <Button v-permission="'admin'" size="small" severity="warn" icon="pi pi-power-off"
+                  v-tooltip="$t('view.broker.list.shutdown')"></Button>
         </div>
         <div class="flex gap-2">
-          <Button icon="pi pi-desktop" severity="secondary" :label="$t('stats')" @click="showBrokerStats" />
-          <SplitButton icon="pi pi-cog" severity="secondary" :label="$t('configuration')" :model="configurationMenus" />
+          <Button icon="pi pi-desktop" severity="secondary" :label="$t('stats')"
+                  @click="showBrokerStats" />
+          <SplitButton icon="pi pi-cog" severity="secondary" :label="$t('configuration')"
+                       :model="configurationMenus">
+            <template #item="{label}">
+              <div class="p-tieredmenu-item-content">
+                <a class="p-tieredmenu-item-link">
+                  <span class="p-tieredmenu-item-label">{{ $t(label) }}</span>
+                </a>
+              </div>
+            </template>
+          </SplitButton>
         </div>
       </div>
     </div>
