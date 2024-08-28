@@ -5,7 +5,7 @@ const props = defineProps({
     required: true
   },
   content: {
-    type: [String, Number, Object],
+    type: [String, Number, Object, undefined],
     required: true
   },
   editable: {
@@ -41,13 +41,15 @@ watch(
     <div class="w-100 font-bold text-l">{{ title }}</div>
     <div class="flex items-center text-muted-color pl-4 gap-x-2" v-if="!editing">
       {{ value }}
-      <Button v-if="editable" size="small" icon="pi pi-pencil" text aria-label="Star" @click="editing = true"></Button>
+      <Button v-if="editable" size="small" icon="pi pi-pencil" text aria-label="Star"
+              @click="editing = true"></Button>
       <slot name="action"></slot>
     </div>
     <div v-else class="flex items-center">
       <InputText v-model="value"></InputText>
       <Button icon="pi pi-save" size="small" text @click="save"></Button>
-      <Button icon="pi pi-times-circle" size="small" severity="secondary" text @click="cancel"></Button>
+      <Button icon="pi pi-times-circle" size="small" severity="secondary" text
+              @click="cancel"></Button>
     </div>
   </div>
 </template>

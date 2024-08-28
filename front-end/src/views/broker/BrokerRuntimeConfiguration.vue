@@ -18,7 +18,8 @@ const filters = ref({
 });
 </script>
 <template>
-  <DataTable :value="runtimeConfiguration" paginator :rows="10" v-model:filters="filters" :globalFilterFields="['name']">
+  <DataTable :value="runtimeConfiguration" paginator :rows="10" v-model:filters="filters"
+             :globalFilterFields="['name']" stripedRows resizableColumns columnResizeMode="fit">
     <template #header>
       <IconField>
         <InputIcon>
@@ -29,11 +30,12 @@ const filters = ref({
     </template>
     <Column :header="$t('name')">
       <template #body="{ data }">
-        <div class="flex gap-x-2 items-center">
-          {{ data.name }}
-          <i v-tooltip="$t(data.name)" class="pi pi-question-circle text-primary cursor-pointer"></i>
+        <div class="flex flex-col gap-2">
+          <span>{{ data.name }}</span>
+          <span class="text-xs text-muted-color">{{ $t(data.name) }}</span>
         </div>
       </template>
+
     </Column>
     <Column field="value" :header="$t('value')"></Column>
   </DataTable>
