@@ -40,5 +40,7 @@
   "password": "密码",
   "sec": "秒",
   "minutes": "分钟",
-  "none": "空"
+  "none": "空",
+  "description": "描述",
+  "permission": "权限"
 }

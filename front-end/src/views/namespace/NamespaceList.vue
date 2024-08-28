@@ -8,6 +8,7 @@ import ConfirmDeleteButton from '@/components/ConfirmDeleteButton.vue';
 import { deconstructionNamespace } from '@/util/namespace-util';
 import NamespaceAnalysis from '@/views/namespace/NamespaceAnalysis.vue';
 import NamespacePolicies from '@/views/namespace/NamespacePolicies.vue';
+import NamespacePermissions from '@/views/namespace/NamespacePermissions.vue';
 
 const { t } = useI18n();
 const dialog = useDialog();
@@ -62,14 +63,30 @@ const showNamespaceAnalysis = (namespace) => {
     data: { tenant, namespace: namespace.namespaceName }
   });
 };
-const filters = ref({
-  global: { value: null, matchMode: FilterMatchMode.CONTAINS }
-});
+
+const showNamespacePermissions = (namespace) => {
+  dialog.open(NamespacePermissions, {
+    props: {
+      header: `${namespace.namespaceName}`,
+      modal: true,
+      contentClass: 'h-full',
+      style: {
+        width: '50dvw',
+        height: '80dvh'
+      }
+    },
+    data: { tenant, namespace: namespace.namespaceName }
+  });
+};
 
 const deleteNamespace = (fullNamespace) => {
   const { namespace } = deconstructionNamespace(fullNamespace);
   store.deleteNamespace(namespace);
 };
+
+const filters = ref({
+  global: { value: null, matchMode: FilterMatchMode.CONTAINS }
+});
 </script>
 <template>
   <Card>
@@ -105,11 +122,15 @@ const deleteNamespace = (fullNamespace) => {
         </Column>
         <Column class="w-60">
           <template #body="{ data }">
-            <Button icon="pi pi-chart-pie" outlined class="mr-2"
-                    v-tooltip="$t('view.namespace.analysis')"
-                    @click="showNamespaceAnalysis(data)" />
-            <ConfirmDeleteButton v-permission="'admin'"
-              @delete="deleteNamespace(data.namespaceName)"></ConfirmDeleteButton>
+            <div class="flex gap-4 items-center">
+              <Button icon="pi pi-shield" outlined
+                      v-tooltip="$t('view.namespace.permissions')"
+                      @click="showNamespacePermissions(data)" />
+              <Button icon="pi pi-chart-pie" outlined v-tooltip="$t('view.namespace.analysis')"
+                      @click="showNamespaceAnalysis(data)" />
+              <ConfirmDeleteButton v-permission="'admin'"
+                                   @delete="deleteNamespace(data.namespaceName)"></ConfirmDeleteButton>
+            </div>
           </template>
         </Column>
       </DataTable>

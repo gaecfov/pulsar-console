@@ -1,5 +1,5 @@
 <script setup>
-import ClusterSelector from '@/components/ClusterSelect.vue';
+import ClusterSelect from '@/components/ClusterSelect.vue';
 import { isBlank } from '@/util/assert';
 import { useTenantStore } from '@/views/tenant/useTenantStore';
 
@@ -42,21 +42,17 @@ const newRole = (event) => {
         <InputText id="name" v-model="tenant" fluid required></InputText>
       </div>
       <div>
-        <label for="serviceUrl" class="block font-bold mb-3">{{ $t('adminRoles') }} </label>
-        <div class="flex flex-wrap items-center gap-2">
-          <Chip v-for="(item, index) in tenantModel.adminRoles" :key="index" removable
-                @remove="removeRole(item)">
-            {{ item }}
-          </Chip>
-          <InputGroup style="width: 10rem">
-            <InputText v-model="role" @keydown.enter="newRole"></InputText>
-            <Button icon="pi pi-plus" @click="newRole" />
-          </InputGroup>
-        </div>
+        <label for="adminRoles" class="block font-bold mb-3">{{ $t('adminRoles') }} </label>
+        <AutoComplete id="adminRoles" :placeholder="$t('view.tenant.placeholder.admin-roles')"
+                      v-model="tenantModel.adminRoles" @keydown.enter.prevent multiple fluid
+                      :typeahead="false" />
       </div>
       <div>
-        <label for="webServiceUrl" class="block font-bold mb-3">{{ $t('allowedClusters') }} </label>
-        <ClusterSelector v-model="tenantModel.allowedClusters" multiple></ClusterSelector>
+        <label for="allowedClusters" class="block font-bold mb-3">{{ $t('allowedClusters')
+          }} </label>
+        <ClusterSelect id="allowedClusters"
+                       :placeholder="$t('view.tenant.placeholder.allowed-clusters')"
+                       v-model="tenantModel.allowedClusters" multiple></ClusterSelect>
       </div>
       <div>
         <Button icon="pi pi-save" type="submit" :label="$t('save')"></Button>

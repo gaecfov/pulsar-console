@@ -40,5 +40,7 @@
   "password": "Password",
   "sec": "Sec",
   "minutes": "Minutes",
-  "none": "None"
+  "none": "None",
+  "description": "Description",
+  "permission": "Permission"
 }

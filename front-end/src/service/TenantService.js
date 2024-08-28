@@ -8,6 +8,10 @@ export const createTenant = (tenant, tenantModel) => {
   return adminApi.put(`/tenants/${tenant}`, tenantModel);
 };
 
+export const updateTenant = (tenant, tenantModel) => {
+  return adminApi.post(`/tenants/${tenant}`, tenantModel);
+};
+
 export const deleteTenant = (tenant) => {
   return adminApi.delete(`/tenants/${tenant}`);
 };

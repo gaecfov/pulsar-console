@@ -35,7 +35,19 @@ export const removeNamespaceMessageTTL = (tenant, namespace) => {
   return adminApi.delete(`/namespaces/${tenant}/${namespace}/messageTTL`);
 };
 
-
 export const unloadNamespace = (tenant, namespace) => {
   return adminApi.put(`/namespaces/${tenant}/${namespace}/unload`);
+};
+
+export const retrievePermissions = (tenant, namespace) => {
+  return adminApi.get(`/namespaces/${tenant}/${namespace}/permissions`);
+};
+
+export const grantPermission = (tenant, namespace, role, permissions) => {
+  return adminApi.post(`/namespaces/${tenant}/${namespace}/permissions/${role}`,
+    permissions);
+};
+
+export const revokeAllPermissions = (tenant, namespace, role) => {
+  return adminApi.delete(`/namespaces/${tenant}/${namespace}/permissions/${role}`);
 };
