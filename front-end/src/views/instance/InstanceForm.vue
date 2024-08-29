@@ -56,7 +56,6 @@ const keyStoreType = ['JKS', 'PKCS12', 'JCEKS', 'PKCS11', 'BKS'];
                 }}</label>
               <InputText id="webServiceUrl" v-model="instance.webServiceUrl" class="w-full"
                          required />
-              <small v-if="!instance.webServiceUrl" class="text-red-500">{{$t('required')}}</small>
             </div>
             <div>
               <label for="authenticationEnabled" class="block font-bold mb-3">{{ $t(
