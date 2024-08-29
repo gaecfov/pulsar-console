@@ -20,9 +20,11 @@ import java.security.cert.X509Certificate;
 import java.time.Duration;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.util.Timeout;
 import org.checkerframework.checker.nullness.qual.PolyNull;
 import org.springframework.context.ApplicationListener;
 import org.springframework.data.util.Pair;
@@ -61,7 +63,9 @@ public class PulsarProxyHttpClientService implements ApplicationListener<Instanc
 
   private @PolyNull CloseableHttpClient createHttpClient(Instance instance) {
     return HttpClients.custom()
-        .addRequestInterceptorLast(new PulsarRequestInterceptor(instance)).build();
+        .addRequestInterceptorLast(new PulsarRequestInterceptor(instance))
+        .disableAutomaticRetries()
+        .build();
   }
 
   private @PolyNull CloseableHttpClient createSSLHttpClient(Instance instance) {
@@ -72,8 +76,15 @@ public class PulsarProxyHttpClientService implements ApplicationListener<Instanc
       } else {
         httpClientBuilder = createSSLHttpClientWithJKS(instance);
       }
-      return httpClientBuilder.addRequestInterceptorLast(
-          new PulsarRequestInterceptor(instance)).build();
+      return httpClientBuilder
+          .setDefaultRequestConfig(
+              RequestConfig
+                  .custom()
+                  .setConnectionRequestTimeout(Timeout.ofSeconds(5))
+                  .build())
+          .addRequestInterceptorLast(new PulsarRequestInterceptor(instance))
+          .disableAutomaticRetries()
+          .build();
     } catch (Exception e) {
       throw new InvalidTlsConfigurationException();
     }

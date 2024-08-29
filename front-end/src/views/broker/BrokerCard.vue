@@ -24,6 +24,7 @@ const showBrokerStats = () => {
   dialog.open(BrokerStats, {
     props: {
       header: t('view.broker.card.stats'),
+      contentClass: 'h-full w-full',
       style: {
         width: '60dvw',
         height: '80dvh'
@@ -33,15 +34,15 @@ const showBrokerStats = () => {
   });
 };
 
-const health = ref(true);
-const ready = ref(true);
+const health = ref();
+const ready = ref();
 
 onMounted(() => {
-  checkHealth().then((res) => {
-    health.value = 'ok' === res.data;
+  checkHealth(props.broker.brokerId).then((res) => {
+    health.value = res.data;
   });
-  checkReady().then((res) => {
-    ready.value = 'ok' === res.data;
+  checkReady(props.broker.brokerId).then((res) => {
+    ready.value = res.data;
   });
 });
 
@@ -64,9 +65,11 @@ const configurationMenus = ref([
           <div class="text-2xl font-medium mt-1">{{ broker.brokerId }}</div>
         </div>
         <div class="flex gap-2">
-          <Badge v-if="health" :value="$t('running')" severity="success"></Badge>
-          <Badge v-else :value="$t('stopped')" severity="danger"></Badge>
-          <Badge v-if="ready" :value="$t('ready')" severity="success"></Badge>
+          <Tag v-if="health==='ok'" :value="$t('running')" severity="success"></Tag>
+          <Tag v-else :value="$t('view.broker.card.health-unknown')" severity="warn"></Tag>
+
+          <Tag v-if="ready==='ok'" :value="$t('ready')" severity="success"></Tag>
+          <Tag v-else :value="$t('view.broker.card.ready-unknown')" severity="warn"></Tag>
         </div>
       </div>
       <div class="flex justify-between gap-6 mt-6">

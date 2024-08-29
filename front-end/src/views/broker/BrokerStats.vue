@@ -1,82 +1,103 @@
 <script setup>
 import { getLoadReport } from '@/service/BrokerService';
 import MetricCard from '@/components/MetricCard.vue';
-import { fixedNum, formatRate, formatThroughput } from '../../util/formatter';
+import { fixedNum, formatRate, formatThroughput } from '@/util/formatter';
 
 const dialogRef = inject('dialogRef');
 const broker = dialogRef.value.data.broker;
 const loadReport = ref();
 const bundlesCollapsed = ref(true);
+const loading = ref(false);
 onMounted(() => {
-  getLoadReport().then((res) => {
+  loading.value = true;
+  getLoadReport(broker.brokerId).then((res) => {
     loadReport.value = res.data;
+  }).finally(() => {
+    loading.value = false;
   });
 });
 </script>
 
 <template>
-  <div v-if="loadReport" class="flex card p-4 flex-col bg-pc-main gap-4">
-    <div class="flex justify-between items-center">
-      {{ broker.brokerId }}
-      <Tag>{{ loadReport.brokerVersionString }}</Tag>
-    </div>
-    <div class="flex flex-col gap-4">
-      <div class="grid grid-cols-6 gap-2">
-        <MetricCard title="cpu">
-          <template #value>
-            <Badge>
-              {{ fixedNum(loadReport.cpu.usage) }}/{{ fixedNum(loadReport.cpu.limit) }}
-            </Badge>
-          </template>
-        </MetricCard>
-        <MetricCard title="memory">
-          <template #value>
-            <Badge>{{ fixedNum(loadReport.memory.usage) }}/{{ fixedNum(
-              loadReport.memory.limit) }}
-            </Badge>
-          </template>
-        </MetricCard>
-        <MetricCard title="directMemory" unit="MB">
-          <template #value>
-            <Badge>{{ fixedNum(loadReport.directMemory.usage) }}/{{ fixedNum(
-              loadReport.directMemory.limit) }}
-            </Badge>
-          </template>
-        </MetricCard>
+  <div v-if="loading" class="flex justify-center items-center gap-2">
+    <Skeleton style="height: 10rem;width: 20rem"></Skeleton>
+    <Skeleton style="height: 10rem;width: 20rem"></Skeleton>
+    <Skeleton style="height: 10rem;width: 20rem"></Skeleton>
+    <Skeleton style="height: 10rem;width: 20rem"></Skeleton>
+  </div>
+  <template v-else>
+    <div v-if="loadReport" class="flex card p-4 flex-col bg-pc-main gap-4">
+      <div class="flex justify-between items-center">
+        {{ broker.brokerId }}
+        <Tag>{{ loadReport.brokerVersionString }}</Tag>
+      </div>
+      <div class="flex flex-col gap-4">
+        <div class="grid grid-cols-6 gap-2">
+          <MetricCard title="cpu">
+            <template #value>
+              <Badge>
+                {{ fixedNum(loadReport.cpu.usage) }}/{{ fixedNum(loadReport.cpu.limit) }}
+              </Badge>
+            </template>
+          </MetricCard>
+          <MetricCard title="memory">
+            <template #value>
+              <Badge>{{ fixedNum(loadReport.memory.usage) }}/{{ fixedNum(
+                loadReport.memory.limit) }}
+              </Badge>
+            </template>
+          </MetricCard>
+          <MetricCard title="directMemory" unit="MB">
+            <template #value>
+              <Badge>{{ fixedNum(loadReport.directMemory.usage) }}/{{ fixedNum(
+                loadReport.directMemory.limit) }}
+              </Badge>
+            </template>
+          </MetricCard>
 
-        <MetricCard title="msgRateIn" :value="formatRate(loadReport.msgRateIn)">
-          <template #title>{{ $t('msgRateIn') }}</template>
-        </MetricCard>
+          <MetricCard title="msgRateIn" :value="formatRate(loadReport.msgRateIn)">
+            <template #title>{{ $t('msgRateIn') }}</template>
+          </MetricCard>
 
-        <MetricCard title="msgRateOut" :value="formatRate(loadReport.msgRateOut)">
-        </MetricCard>
+          <MetricCard title="msgRateOut" :value="formatRate(loadReport.msgRateOut)">
+          </MetricCard>
 
-        <MetricCard title="msgThroughputIn" :value="formatThroughput(loadReport.msgThroughputIn)">
-        </MetricCard>
+          <MetricCard title="msgThroughputIn" :value="formatThroughput(loadReport.msgThroughputIn)">
+          </MetricCard>
 
-        <MetricCard title="msgThroughputOut" :value="formatThroughput(loadReport.msgThroughputOut)">
-        </MetricCard>
+          <MetricCard title="msgThroughputOut"
+                      :value="formatThroughput(loadReport.msgThroughputOut)">
+          </MetricCard>
 
-        <MetricCard title="numTopics" :value="loadReport.numTopics">
-        </MetricCard>
+          <MetricCard title="numTopics" :value="loadReport.numTopics">
+          </MetricCard>
 
-        <MetricCard title="numBundles" :value="loadReport.numBundles">
-        </MetricCard>
+          <MetricCard title="numBundles" :value="loadReport.numBundles">
+          </MetricCard>
 
-        <MetricCard title="numConsumers" :value="loadReport.numConsumers">
-        </MetricCard>
+          <MetricCard title="numConsumers" :value="loadReport.numConsumers">
+          </MetricCard>
 
-        <Panel class="col-span-6 p-0" toggleable :collapsed="bundlesCollapsed">
-          <template #header>
-            <div class="flex items-center gap-2">
-              <span class="font-bold">Bundles</span>
+          <Panel class="col-span-6 p-0" toggleable :collapsed="bundlesCollapsed">
+            <template #header>
+              <div class="flex items-center gap-2">
+                <span class="font-bold">Bundles</span>
+              </div>
+            </template>
+            <div class="card p-0 gap-2 grid grid-cols-2">
+              <Tag v-for="(item, index) in loadReport.bundles" :key="index">{{ item }}</Tag>
             </div>
-          </template>
-          <div class="card p-0 gap-2 grid grid-cols-2">
-            <Tag v-for="(item, index) in loadReport.bundles" :key="index">{{ item }}</Tag>
-          </div>
-        </Panel>
+          </Panel>
+        </div>
       </div>
     </div>
-  </div>
+    <div v-else class="h-full w-full flex flex-col p-20 gap-8 items-center justify-center">
+      <div class="text-6xl">{{ $t('view.broker.stats.request-failed') }}</div>
+      <div class="text-xl text-muted-color text-center px-20">{{ $t(
+        'view.broker.stats.request-failed-help') }}
+      </div>
+      <Button icon="pi pi-times-circle" severity="help" size="large" :label="$t('close')"
+              @click="dialogRef.close()"></Button>
+    </div>
+  </template>
 </template>

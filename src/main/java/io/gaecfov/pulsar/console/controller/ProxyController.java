@@ -49,8 +49,7 @@ public class ProxyController {
     Instance instance = httpClientPair.getFirst();
     CloseableHttpClient httpClient = httpClientPair.getSecond();
 
-    String url = StringUtils.concat(
-        StringUtils.isBlank(originDomain) ? instance.getWebServiceUrl() : originDomain,
+    String url = StringUtils.concat(getFrowardDomain(instance, originDomain),
         request.getRequestURI().substring("/proxy".length()));
     String queryParams = request.getQueryString();
     if (queryParams != null) {
@@ -59,16 +58,30 @@ public class ProxyController {
     ClassicHttpRequest httpRequest = createHttpRequest(method, url, body);
     try {
       return httpClient.execute(httpRequest, res -> {
-        byte[] byteArray = EntityUtils.toByteArray(res.getEntity());
         BodyBuilder bodyBuilder = ResponseEntity.status(res.getCode());
         for (Header header : res.getHeaders()) {
           bodyBuilder.header(header.getName(), header.getValue());
         }
-        return bodyBuilder.body(byteArray);
+        if (res.getEntity() != null) {
+          byte[] byteArray = EntityUtils.toByteArray(res.getEntity());
+          return  bodyBuilder.body(byteArray);
+        }
+        return bodyBuilder.build();
       });
     } catch (IOException e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .body("Requst Failed".getBytes(StandardCharsets.UTF_8));
+          .body("Request Failed".getBytes(StandardCharsets.UTF_8));
+    }
+  }
+
+  private String getFrowardDomain(Instance instance, String originDomain) {
+    if (StringUtils.isBlank(originDomain)) {
+      return instance.getWebServiceUrl();
+    }
+    if (instance.isTlsEnabled()) {
+      return "https://" + originDomain;
+    } else {
+      return "http://" + originDomain;
     }
   }
 

@@ -2,15 +2,21 @@
 import { getRuntimeConfiguration } from '@/service/BrokerService';
 import { FilterMatchMode } from '@primevue/core/api';
 
+const dialogRef = inject('dialogRef');
+const broker = dialogRef.value.data.broker;
 const runtimeConfiguration = ref([]);
+const loading = ref(false);
 onMounted(() => {
-  getRuntimeConfiguration().then((res) => {
+  loading.value = true;
+  getRuntimeConfiguration(broker.brokerId).then((res) => {
     runtimeConfiguration.value = Object.keys(res.data).map((k) => {
       return {
         name: k,
         value: res.data[k]
       };
     });
+  }).finally(() => {
+    loading.value = false;
   });
 });
 const filters = ref({
@@ -18,7 +24,8 @@ const filters = ref({
 });
 </script>
 <template>
-  <DataTable :value="runtimeConfiguration" paginator :rows="10" v-model:filters="filters"
+  <DataTable :loading="loading" :value="runtimeConfiguration" paginator :rows="10"
+             v-model:filters="filters"
              :globalFilterFields="['name']" stripedRows resizableColumns columnResizeMode="fit">
     <template #header>
       <IconField>

@@ -4,27 +4,48 @@ export const listBrokers = () => {
   return adminApi.get('/brokers');
 };
 
-export const checkHealth = () => {
-  return adminApi.get('/brokers/health');
-};
-export const checkReady = () => {
-  return adminApi.get('/brokers/ready');
-};
-
 export const getLeaderBroker = () => {
   return adminApi.get('/brokers/leaderBroker');
 };
 
-export const getRuntimeConfiguration = () => {
-  return adminApi.get('/brokers/configuration/runtime');
+
+export const checkHealth = (brokerId) => {
+  return adminApi.get('/brokers/health', {
+    headers: {
+      'X-ORIGIN-DOMAIN': brokerId
+    }
+  });
+};
+export const checkReady = (brokerId) => {
+  return adminApi.get('/brokers/ready', {
+    headers: {
+      'X-ORIGIN-DOMAIN': brokerId
+    }
+  });
 };
 
-export const getInternalConfiguration = () => {
-  return adminApi.get('/brokers/internal-configuration');
+export const getRuntimeConfiguration = (brokerId) => {
+  return adminApi.get('/brokers/configuration/runtime', {
+    headers: {
+      'X-ORIGIN-DOMAIN': brokerId
+    }
+  });
 };
 
-export const shutdownBroker = () => {
-  return adminApi.post('/brokers/shutdown');
+export const getInternalConfiguration = (brokerId) => {
+  return adminApi.get('/brokers/internal-configuration', {
+    headers: {
+      'X-ORIGIN-DOMAIN': brokerId
+    }
+  });
+};
+
+export const shutdownBroker = (brokerId) => {
+  return adminApi.post('/brokers/shutdown', {
+    headers: {
+      'X-ORIGIN-DOMAIN': brokerId
+    }
+  });
 };
 
 export const listOwnedNamespaces = (cluster, brokerId) => {
