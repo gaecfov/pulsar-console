@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useGlobalStore } from '@/stroes/useGlobalStore';
-import router from '@/router';
 import { i18n } from '@/i18n.config';
+import toastUtil from '@/util/toast-util';
 
 const { global } = i18n;
 const adminApi = axios.create({
@@ -17,7 +17,6 @@ adminApi.interceptors.request.use((config) => {
     return Promise.reject(
       new Error(global.t('error.message.instance-id-required')));
   }
-
   // 在请求头中添加认证令牌
   if (store.isLogin) {
     config.headers['Authorization'] = `Bearer ${store.token}`;
@@ -30,18 +29,12 @@ adminApi.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response && error.response.status === 401) {
-      router.push('/auth/login');
-    } else if (error.response && error.response.status === 403) {
-      router.push('/auth/access');
+    if (error.response && (error.response.status === 401
+      || error.response.status === 403)) {
+      toastUtil.error(global.t('error.message.unauthorized'));
     } else {
       const message = error.response ? error.response.data : error.message;
-      adminApi.$toast.add({
-        severity: 'error',
-        summary: global.t('error.message.request-failed'),
-        detail: message,
-        life: 3000
-      });
+      toastUtil.error(global.t('error.message.request-failed'));
     }
     return Promise.reject(error);
   }

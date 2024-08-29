@@ -10,6 +10,14 @@ export default {
       life: 2000
     });
   },
+  error(message = global.t('error')) {
+    this.add({
+      severity: 'error',
+      summary: global.t('error'),
+      detail: message,
+      life: 2000
+    });
+  },
   add(message) {
     if (this.$toast) {
       this.$toast.add(message);
