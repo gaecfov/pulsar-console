@@ -32,10 +32,8 @@ const showInstanceForm = (instance) => {
       <DataTable :value="store.instances" :loading="store.loading">
         <template #header>
           <div class="flex flex-wrap gap-2 items-center justify-between">
-            <div>
-              <Button :label="$t('view.instance.list.new')" icon="pi pi-plus" severity="secondary"
-                      class="mr-2" @click="showInstanceForm()" />
-            </div>
+            <Button :label="$t('view.instance.list.new')" icon="pi pi-plus"
+                    @click="showInstanceForm()" />
           </div>
         </template>
         <Column field="id" header="ID"></Column>

@@ -58,15 +58,3 @@ const signIn = () => {
     </div>
   </div>
 </template>
-
-<!--<style scoped>-->
-<!--.pi-eye {-->
-<!--  transform: scale(1.6);-->
-<!--  margin-right: 1rem;-->
-<!--}-->
-
-<!--.pi-eye-slash {-->
-<!--  transform: scale(1.6);-->
-<!--  margin-right: 1rem;-->
-<!--}-->
-<!--</style>-->

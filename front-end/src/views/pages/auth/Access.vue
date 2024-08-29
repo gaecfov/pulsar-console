@@ -16,7 +16,7 @@ import FloatingConfigurator from '@/components/FloatingConfigurator.vue';
               {{ $t('view.pages.access.title') }}
             </h1>
             <span class="text-muted-color mb-8">{{ $t('view.pages.access.description') }}</span>
-            <img src="/demo/images/access/asset-access.svg" alt="Access denied" class="mb-8" width="80%" />
+            <img src="/images/access/asset-access.svg" alt="Access denied" class="mb-8" width="80%" />
             <div class="col-span-12 mt-8 text-center">
               <Button as="router-link" :label="$t('common.go-home')" to="/" severity="warn" />
             </div>
