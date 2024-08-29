@@ -23,6 +23,7 @@
   "name": "名称",
   "value": "值",
   "success": "成功",
+  "error": "错误",
   "running": "运行中",
   "shutdown": "关闭",
   "stopped": "已停止",
@@ -42,5 +43,6 @@
   "minutes": "分钟",
   "none": "空",
   "description": "描述",
-  "permission": "权限"
+  "permission": "权限",
+  "required": "必填"
 }

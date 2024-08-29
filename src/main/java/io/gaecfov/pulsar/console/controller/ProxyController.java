@@ -1,25 +1,29 @@
 package io.gaecfov.pulsar.console.controller;
 
-import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
 import io.gaecfov.pulsar.console.entity.Instance;
-import io.gaecfov.pulsar.console.service.InstanceService;
+import io.gaecfov.pulsar.console.service.HttpClientService;
+import io.gaecfov.pulsar.console.utils.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
-import java.time.Duration;
-import java.util.Optional;
+import java.io.IOException;
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
+import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.core5.http.ClassicHttpRequest;
+import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.Header;
+import org.apache.hc.core5.http.io.entity.ByteArrayEntity;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
+import org.springframework.data.util.Pair;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * @author zhangqin
@@ -28,21 +32,10 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class ProxyController {
 
-  private final RestTemplate restTemplate;
-  private final InstanceService instanceService;
-  private final Cache<Long, Instance> instanceCache;
+  private final HttpClientService httpClientService;
 
-  public ProxyController(InstanceService instanceService) {
-    SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-    factory.setConnectTimeout(5000); // 5秒
-    factory.setReadTimeout(5000); // 5秒
-
-    this.restTemplate = new RestTemplate(factory);
-    this.instanceService = instanceService;
-    this.instanceCache = Caffeine.newBuilder()
-        .maximumSize(5)
-        .expireAfterWrite(Duration.ofMinutes(5))
-        .build();
+  public ProxyController(HttpClientService httpClientService) {
+    this.httpClientService = httpClientService;
   }
 
   @RequestMapping(value = "/proxy/**")
@@ -50,40 +43,40 @@ public class ProxyController {
       @RequestHeader(value = "X-PULSAR-INSTANCE-ID", defaultValue = "1") Long instanceId,
       @RequestHeader(value = "X-ORIGIN-DOMAIN", required = false) String originDomain,
       @RequestBody(required = false) byte[] body) {
-    String url;
-    if (originDomain != null && !originDomain.isBlank()) {
-      url = "http://" + originDomain;
-    } else {
-      Instance instance = instanceCache.get(instanceId, key -> {
-        Optional<Instance> optional = instanceService.getById(key);
-        if (optional.isPresent()) {
-          return optional.get();
-        }
-        throw new IllegalArgumentException("Instance not found");
-      });
-      url = instance.getWebServiceUrl();
-    }
-    url += request.getRequestURI().substring("/proxy".length());
+
+    Pair<Instance, CloseableHttpClient> httpClientPair = httpClientService.getHttpClient(
+        instanceId);
+    Instance instance = httpClientPair.getFirst();
+    CloseableHttpClient httpClient = httpClientPair.getSecond();
+
+    String url = StringUtils.concat(
+        StringUtils.isBlank(originDomain) ? instance.getWebServiceUrl() : originDomain,
+        request.getRequestURI().substring("/proxy".length()));
     String queryParams = request.getQueryString();
     if (queryParams != null) {
       url += "?" + queryParams;
     }
-    HttpHeaders headers = new HttpHeaders();
-    headers.add("Content-Type", "application/json");
-    headers.add("Accept-Encoding", "gzip, deflate, br");
-    headers.add("Accept", "*/*");
-
-    HttpEntity<byte[]> entity = new HttpEntity<>(body, headers);
+    ClassicHttpRequest httpRequest = createHttpRequest(method, url, body);
     try {
-      ResponseEntity<byte[]> response = restTemplate.exchange(url, method, entity, byte[].class);
-
-      return ResponseEntity.status(response.getStatusCode())
-          .headers(response.getHeaders())
-          .body(response.getBody());
-    } catch (HttpClientErrorException ex) {
+      return httpClient.execute(httpRequest, res -> {
+        byte[] byteArray = EntityUtils.toByteArray(res.getEntity());
+        BodyBuilder bodyBuilder = ResponseEntity.status(res.getCode());
+        for (Header header : res.getHeaders()) {
+          bodyBuilder.header(header.getName(), header.getValue());
+        }
+        return bodyBuilder.body(byteArray);
+      });
+    } catch (IOException e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .headers(ex.getResponseHeaders())
-          .body(ex.getResponseBodyAsByteArray());
+          .body("Requst Failed".getBytes(StandardCharsets.UTF_8));
     }
+  }
+
+  private ClassicHttpRequest createHttpRequest(HttpMethod method, String url, byte[] body) {
+    HttpUriRequestBase request = new HttpUriRequestBase(method.name(), URI.create(url));
+    if (body != null && body.length > 0) {
+      request.setEntity(new ByteArrayEntity(body, ContentType.APPLICATION_JSON));
+    }
+    return request;
   }
 }

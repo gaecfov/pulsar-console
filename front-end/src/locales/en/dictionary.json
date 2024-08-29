@@ -23,6 +23,7 @@
   "name": "Name",
   "value": "Value",
   "success": "Success",
+  "error": "Error",
   "running": "Running",
   "shutdown": "Shutdown",
   "stopped": "Stopped",
@@ -42,5 +43,6 @@
   "minutes": "Minutes",
   "none": "None",
   "description": "Description",
-  "permission": "Permission"
+  "permission": "Permission",
+  "required": "Required"
 }

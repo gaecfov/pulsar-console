@@ -11,15 +11,17 @@ onMounted(() => {
   store.reload();
 });
 
-const showInstanceForm = () => {
+const showInstanceForm = (instance) => {
   dialog.open(InstanceForm, {
     props: {
       header: t('view.instance.form.title'),
       modal: true,
       style: {
-        width: '400px'
+        width: '50dvw',
+        height: '60dvw'
       }
-    }
+    },
+    data: instance
   });
 };
 </script>
@@ -31,18 +33,32 @@ const showInstanceForm = () => {
         <template #header>
           <div class="flex flex-wrap gap-2 items-center justify-between">
             <div>
-              <Button :label="$t('view.instance.list.new')" icon="pi pi-plus" severity="secondary" class="mr-2" @click="showInstanceForm" />
+              <Button :label="$t('view.instance.list.new')" icon="pi pi-plus" severity="secondary"
+                      class="mr-2" @click="showInstanceForm()" />
             </div>
           </div>
         </template>
         <Column field="id" header="ID"></Column>
-        <Column field="name" header="Name"></Column>
-        <Column field="serviceUrl" header="ServiceUrl"></Column>
-        <Column field="webServiceUrl" header="WebServiceUrl"></Column>
+        <Column field="name" :header="$t('name')"></Column>
+        <Column field="webServiceUrl" :header="$t('view.instance.webServiceUrl')"></Column>
+        <Column field="authenticationEnabled" :header="$t('view.instance.authenticationEnabled')">
+          <template #body="{data}">
+            <ToggleSwitch v-model="data.authenticationEnabled" readonly />
+          </template>
+        </Column>
+        <Column field="tlsEnabled" :header="$t('view.instance.tlsEnabled')">
+          <template #body="{data}">
+            <ToggleSwitch v-model="data.tlsEnabled" readonly />
+          </template>
+        </Column>
         <Column class="w-60">
-          <template #body="slotScope">
-            <Button icon="pi pi-file-edit" outlined class="mr-2" />
-            <ConfirmDeleteButton v-permission="'admin'" @delete="store.delInstance(slotScope.data.id)"></ConfirmDeleteButton>
+          <template #body="{data}">
+            <div class="flex items-center gap-4">
+              <Button icon="pi pi-file-edit" outlined @click="showInstanceForm(data)" />
+              <ConfirmDeleteButton v-permission="'admin'"
+                                   @delete="store.deleteInstance(data.id)"></ConfirmDeleteButton>
+            </div>
+
           </template>
         </Column>
       </DataTable>

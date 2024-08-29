@@ -1,8 +1,4 @@
-import {
-  createInstance,
-  deleteInstance,
-  listInstances
-} from '@/service/InstanceService';
+import * as ins from '@/service/InstanceService';
 import toast from '@/util/toast-util';
 import { useGlobalStore } from '@/stroes/useGlobalStore';
 
@@ -12,7 +8,7 @@ export const useInstanceStore = defineStore('instance-store', () => {
 
   const reload = () => {
     loading.value = true;
-    listInstances().then((res) => {
+    ins.listInstances().then((res) => {
       instances.value = res.data;
 
       const store = useGlobalStore();
@@ -25,18 +21,33 @@ export const useInstanceStore = defineStore('instance-store', () => {
     });
   };
 
-  const addInstance = (instance) => {
-    return createInstance(instance).then(() => {
-      toast.success();
-      reload();
-    });
-  };
-  const delInstance = async (instanceId) => {
-    return deleteInstance(instanceId).then(() => {
+  const createInstance = (instance) => {
+    return ins.createInstance(instance).then(() => {
       toast.success();
       reload();
     });
   };
 
-  return { instances, loading, reload, addInstance, delInstance };
+  const modifyInstance = (id, instance) => {
+    return ins.modifyInstance(id, instance).then(() => {
+      toast.success();
+      reload();
+    });
+  };
+
+  const deleteInstance = async (instanceId) => {
+    return ins.deleteInstance(instanceId).then(() => {
+      toast.success();
+      reload();
+    });
+  };
+
+  return {
+    instances,
+    loading,
+    reload,
+    createInstance,
+    modifyInstance,
+    deleteInstance
+  };
 });
