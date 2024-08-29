@@ -2,8 +2,13 @@ import axios from 'axios';
 import { useGlobalStore } from '@/stroes/useGlobalStore';
 import { i18n } from '@/i18n.config';
 import toastUtil from '@/util/toast-util';
+import { useDebounceFn } from '@vueuse/core';
 
 const { global } = i18n;
+
+const debouncedError = useDebounceFn(message =>
+  toastUtil.error(message), 1000);
+
 const adminApi = axios.create({
   baseURL: '/proxy/admin/v2',
   headers: {
@@ -31,10 +36,10 @@ adminApi.interceptors.response.use(
   (error) => {
     if (error.response && (error.response.status === 401
       || error.response.status === 403)) {
-      toastUtil.error(global.t('error.message.unauthorized'));
+      debouncedError(global.t('error.message.unauthorized'));
     } else {
       const message = error.response ? error.response.data : error.message;
-      toastUtil.error(global.t('error.message.request-failed'));
+      debouncedError(message);
     }
     return Promise.reject(error);
   }
