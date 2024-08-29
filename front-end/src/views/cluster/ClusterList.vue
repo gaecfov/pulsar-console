@@ -20,7 +20,8 @@ const showClusterStats = (cluster) => {
       header: `${cluster.clusterName}`,
       modal: true,
       style: {
-        width: '60vw'
+        width: '50dvw',
+        height: '70dvh'
       }
     },
     data: { cluster: cluster.clusterName }

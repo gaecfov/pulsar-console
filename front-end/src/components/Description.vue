@@ -5,7 +5,6 @@ const props = defineProps({
     required: true
   },
   content: {
-    type: [String, Number, Object, undefined],
     required: true
   },
   editable: {
