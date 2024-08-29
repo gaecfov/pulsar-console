@@ -1,7 +1,7 @@
 package io.gaecfov.pulsar.console.controller;
 
 import io.gaecfov.pulsar.console.entity.Instance;
-import io.gaecfov.pulsar.console.service.HttpClientService;
+import io.gaecfov.pulsar.console.service.PulsarProxyHttpClientService;
 import io.gaecfov.pulsar.console.utils.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -32,10 +32,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ProxyController {
 
-  private final HttpClientService httpClientService;
+  private final PulsarProxyHttpClientService pulsarProxyHttpClientService;
 
-  public ProxyController(HttpClientService httpClientService) {
-    this.httpClientService = httpClientService;
+  public ProxyController(PulsarProxyHttpClientService pulsarProxyHttpClientService) {
+    this.pulsarProxyHttpClientService = pulsarProxyHttpClientService;
   }
 
   @RequestMapping(value = "/proxy/**")
@@ -44,7 +44,7 @@ public class ProxyController {
       @RequestHeader(value = "X-ORIGIN-DOMAIN", required = false) String originDomain,
       @RequestBody(required = false) byte[] body) {
 
-    Pair<Instance, CloseableHttpClient> httpClientPair = httpClientService.getHttpClient(
+    Pair<Instance, CloseableHttpClient> httpClientPair = pulsarProxyHttpClientService.getHttpClient(
         instanceId);
     Instance instance = httpClientPair.getFirst();
     CloseableHttpClient httpClient = httpClientPair.getSecond();

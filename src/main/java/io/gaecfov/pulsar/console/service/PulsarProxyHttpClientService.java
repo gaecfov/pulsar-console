@@ -3,6 +3,7 @@ package io.gaecfov.pulsar.console.service;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import io.gaecfov.pulsar.console.entity.Instance;
+import io.gaecfov.pulsar.console.event.InstanceModifiedEvent;
 import io.gaecfov.pulsar.console.exception.DataNotFoundException;
 import io.gaecfov.pulsar.console.exception.InvalidTlsConfigurationException;
 import io.gaecfov.pulsar.console.utils.HttpClientUtils;
@@ -18,23 +19,26 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.time.Duration;
 import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.checkerframework.checker.nullness.qual.PolyNull;
+import org.springframework.context.ApplicationListener;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 /**
  * @author zhangqin
  */
+@Slf4j
 @Service
-public class HttpClientService {
+public class PulsarProxyHttpClientService implements ApplicationListener<InstanceModifiedEvent> {
 
   private final InstanceService instanceService;
   private final Cache<Long, Pair<Instance, CloseableHttpClient>> httpClientCache;
 
-  public HttpClientService(InstanceService instanceService) {
+  public PulsarProxyHttpClientService(InstanceService instanceService) {
     this.instanceService = instanceService;
     this.httpClientCache = Caffeine.newBuilder()
         .maximumSize(5)
@@ -99,5 +103,17 @@ public class HttpClientService {
     KeyStore trustStore = TLSUtils.createKeyStore("JKS", "ca", trustCertificate);
 
     return HttpClientUtils.getHttpClientBuildWithTls(keyStore, trustStore);
+  }
+
+  /**
+   * Handle an application event.
+   *
+   * @param event the event to respond to
+   */
+  @Override
+  public void onApplicationEvent(InstanceModifiedEvent event) {
+    Instance instance = event.getInstance();
+    httpClientCache.invalidate(instance.getId());
+    log.info("invalidate instance {}'s http client cache", instance.getName());
   }
 }
