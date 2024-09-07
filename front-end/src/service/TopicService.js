@@ -76,7 +76,7 @@ export const postPolicy = (topic, policyName, policy, params) => {
 };
 
 export const putPolicy = (topic, policyName, policy, params) => {
-  return adminApi.post(
+  return adminApi.put(
     `/${topic.persistence}/${topic.tenant}/${topic.namespace}/${topic.humanTopicName}/${policyName}`,
     policy, {
       params
