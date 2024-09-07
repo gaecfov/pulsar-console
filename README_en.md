@@ -86,7 +86,11 @@ The app will check once to see if an admin account exists. If not, the admin acc
 grep superuser logs/app.log
 ```
 
-![login.png](docs/images/login.png)
-![broker.png](docs/images/broker.png)
-![topic_stats.png](docs/images/topic_stats.png)
-![subscriptions.png](docs/images/subscriptions.png)
+![login.gif](docs/images/login.gif)
+![instances.gif](docs/images/instances.gif)
+![tenants.gif](docs/images/tenants.gif)
+![namespace.gif](docs/images/namespace.gif)
+![topic.gif](docs/images/topic.gif)
+![topic-detail.gif](docs/images/topic-detail.gif)
+![client-certificate.gif](docs/images/client-certificate.gif)
+![client-token.gif](docs/images/client-token.gif)
