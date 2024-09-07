@@ -14,7 +14,7 @@ const tabChange = (tab) => {
 </script>
 
 <template>
-  <DetailPage>
+  <DetailPage backRoute="namespaces">
     <template #title>
       {{ tenant }}/{{ namespace }}
     </template>
