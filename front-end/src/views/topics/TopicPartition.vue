@@ -40,6 +40,7 @@ onActivated(() => {
   if (autoRefresh.value) {
     intervalId = setInterval(reload, 1000 * autoRefreshSeconds.value);
   }
+  reload();
 });
 
 onDeactivated(() => {
