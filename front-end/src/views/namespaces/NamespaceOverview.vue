@@ -4,11 +4,11 @@ import * as ns from '@/service/NamespaceService';
 import toastUtil from '@/util/toast-util';
 import FormItem from '@/components/FormItem.vue';
 import ConfirmDeleteButton from '@/components/ConfirmDeleteButton.vue';
+import { useEmitter } from '@/hooks/useEmitter';
 
 const props = defineProps(['tenant', 'namespace']);
-
 const boundaries = ref([]);
-
+const emitter = useEmitter();
 onMounted(() => {
   loadBundles();
 });
@@ -81,6 +81,7 @@ const router = useRouter();
 const deleteNamespace = () => {
   ns.deleteNamespace(props.tenant, props.namespace).then(() => {
     toastUtil.success();
+    emitter.emit('namespace-deleted');
     router.push({
       name: 'namespaces'
     });

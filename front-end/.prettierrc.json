@@ -6,5 +6,5 @@
   "singleQuote": true,
   "vueIndentScriptAndStyle": false,
   "printWidth": 100,
-  "bracketSameLine": false,
+  "bracketSameLine": false
 }

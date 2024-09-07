@@ -1,18 +1,23 @@
 <script setup>
-import { useNamespaceStore } from '@/stroes/useNamespaceStore';
 import FormItem from '@/components/FormItem.vue';
 import * as v from 'valibot';
 import { useValidate } from '@/hooks/useValidate';
+import { createNamespace } from '@/service/NamespaceService';
+import { useEmitter } from '@/hooks/useEmitter';
+import toastUtil from '@/util/toast-util';
 
 const dialogRef = inject('dialogRef');
-const store = useNamespaceStore();
+const tenant = dialogRef.value.data.tenant;
 const namespace = ref();
+const emitter = useEmitter();
 
 const schema = v.string([v.trim(), v.minLength(1, 'view.namespace.error.name')]);
 const { errors, submit } = useValidate();
 const save = () => {
   submit(schema, namespace.value, () => {
-    store.createNamespace(namespace.value).then(() => {
+    createNamespace(tenant, namespace.value).then(() => {
+      emitter.emit('namespace-created');
+      toastUtil.success();
       dialogRef.value.close();
     });
   });

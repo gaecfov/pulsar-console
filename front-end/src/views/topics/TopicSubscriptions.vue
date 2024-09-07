@@ -115,25 +115,27 @@ const expirySubscription = (sub) => {
                 </template>
               </Toolbar>
               <div class="grid grid-cols-4 gap-4">
-                <MetricCard title="msgBacklog" :value="item.msgBacklog"
+                <MetricCard title="view.topic.subscription.msgBacklog" :value="item.msgBacklog"
                             icon="pi pi-inbox dark:bg-blue-500 bg-blue-200">
 
                 </MetricCard>
-                <MetricCard title="messageAckRate" :value="formatRate(item.messageAckRate)"
+                <MetricCard title="view.topic.subscription.messageAckRate" :value="formatRate(item.messageAckRate)"
                             icon="pi pi-check dark:bg-green-500 bg-green-200">
                 </MetricCard>
 
-                <MetricCard title="unackedMessages" :value="item.unackedMessages"
+                <MetricCard title="view.topic.subscription.unackedMessages" :value="item.unackedMessages"
                             icon="pi pi-hourglass dark:bg-orange-500 bg-orange-200">
                 </MetricCard>
-                <MetricCard title="msgOutCounter" :value="item.msgOutCounter"
+                <MetricCard title="view.topic.subscription.msgOutCounter" :value="item.msgOutCounter"
                             icon="pi pi-upload dark:bg-pink-500 bg-pink-200">
                 </MetricCard>
               </div>
               <Panel v-if="isOnline(item)" :header="$t('view.topic.consumers')" toggleable
                      collapsed>
-                <TopicConsumer v-for="consumer in item.consumers" :key="consumer.consumerName"
-                               :consumer="consumer"></TopicConsumer>
+                <div class="flex flex-col gap-4">
+                  <TopicConsumer v-for="consumer in item.consumers" :key="consumer.consumerName"
+                                 :consumer="consumer"></TopicConsumer>
+                </div>
               </Panel>
             </div>
           </Panel>

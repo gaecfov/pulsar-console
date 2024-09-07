@@ -31,7 +31,7 @@ const cursors = computed(() => {
 <template>
   <div class="grid grid-cols-4 gap-4">
     <template v-if="stats">
-      <MetricCard icon="pi-database" title="storageSize" :value="stats.storageSize"
+      <MetricCard icon="pi-database" title="view.topic.storage.storageSize" :value="stats.storageSize"
                   value-type="storage">
         <template #action>
           <div class="flex gap-2">
@@ -48,7 +48,7 @@ const cursors = computed(() => {
     </template>
 
     <template v-if="internalStats">
-      <MetricCard icon="pi-file" title="numberOfEntries" :value="internalStats.numberOfEntries">
+      <MetricCard icon="pi-file" title="view.topic.storage.numberOfEntries" :value="internalStats.numberOfEntries">
       </MetricCard>
     </template>
 

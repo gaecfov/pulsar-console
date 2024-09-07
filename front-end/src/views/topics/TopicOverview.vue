@@ -47,22 +47,22 @@ const terminate = () => {
       </Toolbar>
     </div>
     <template v-if="internalStats">
-      <MetricCard icon="pi pi-box" title="state" :value="internalStats.state">
+      <MetricCard icon="pi pi-box" title="view.topic.state" :value="internalStats.state">
       </MetricCard>
     </template>
     <template v-if="stats">
-      <MetricCard icon="pi pi-desktop" title="ownerBroker" :value="stats.ownerBroker">
+      <MetricCard icon="pi pi-desktop" title="view.topic.ownerBroker" :value="stats.ownerBroker">
       </MetricCard>
-      <MetricCard icon="pi pi-arrow-down" title="msgRateIn" :value="stats.msgRateIn"
+      <MetricCard icon="pi pi-arrow-down" title="view.topic.msgRateIn" :value="stats.msgRateIn"
                   value-type="rate">
       </MetricCard>
-      <MetricCard icon="pi pi-arrow-up" title="msgRateOut" :value="stats.msgRateOut"
+      <MetricCard icon="pi pi-arrow-up" title="view.topic.msgRateOut" :value="stats.msgRateOut"
                   value-type="rate">
       </MetricCard>
-      <MetricCard icon="pi pi-globe" title="msgThroughputIn" :value="stats.msgThroughputIn"
+      <MetricCard icon="pi pi-globe" title="view.topic.msgThroughputIn" :value="stats.msgThroughputIn"
                   value-type="throughput">
       </MetricCard>
-      <MetricCard icon="pi pi-globe" title="msgThroughputOut" :value="stats.msgThroughputOut"
+      <MetricCard icon="pi pi-globe" title="view.topic.msgThroughputOut" :value="stats.msgThroughputOut"
                   value-type="throughput">
       </MetricCard>
     </template>

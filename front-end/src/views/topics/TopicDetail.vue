@@ -42,7 +42,7 @@ onActivated(() => {
     </template>
     <template #right>
       <div class="flex gap-2 text-base  items-center" v-if="partitions.length>0">
-        <label for="partitions">{{ $t('partitions') }}</label>
+        <label for="partitions">{{ $t('view.topic.partitions') }}</label>
         <Select id="partitions" class="w-60"
                 v-model="currentTopic" optionLabel="partition"
                 optionValue="topic"

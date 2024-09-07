@@ -1,24 +1,35 @@
 <script setup>
 import TenantSelect from '@/views/components/TenantSelect.vue';
 import { useDialog } from 'primevue/usedialog';
-import { useNamespaceStore } from '@/stroes/useNamespaceStore';
 import { FilterMatchMode } from '@primevue/core/api';
 import NamespaceNew from '@/views/namespaces/NamespaceNew.vue';
 import { deconstructionNamespace } from '@/util/namespace-util';
 import { useRouter } from 'vue-router';
+import { useEmitter } from '@/hooks/useEmitter';
+import * as ns from '@/service/NamespaceService';
+import { useI18n } from 'vue-i18n';
+import { useFetch } from '@/hooks/useFetch';
 
 const { t } = useI18n();
 const dialog = useDialog();
 const tenant = ref();
-const store = useNamespaceStore();
+const { list, reload } = useFetch(() => {
+  return ns.listNamespaces(tenant.value);
+}, (data) => {
+  return data.map((x) => {
+    return { namespaceName: x };
+  });
+});
 
-watch(
-  () => tenant.value,
-  () => {
-    store.tenant = tenant.value;
-    store.reload();
-  }
-);
+watch(() => tenant.value, reload);
+
+const emitter = useEmitter();
+emitter.on('namespace-deleted', () => {
+  reload();
+});
+emitter.on('namespace-created', () => {
+  reload();
+});
 
 const showNamespaceNew = () => {
   dialog.open(NamespaceNew, {
@@ -29,7 +40,8 @@ const showNamespaceNew = () => {
         width: '300px',
         height: '250px'
       }
-    }
+    },
+    data: { tenant: tenant.value }
   });
 };
 
@@ -51,7 +63,7 @@ const filters = ref({
       {{ $t('view.namespace') }}
     </template>
     <template #content>
-      <DataTable :value="store.namespaces" v-model:filters="filters" paginator :rows="10"
+      <DataTable :value="list" v-model:filters="filters" paginator :rows="10"
                  :globalFilterFields="['namespaceName']">
         <template #header>
           <div class="flex flex-wrap gap-2 items-center justify-between">
@@ -60,7 +72,7 @@ const filters = ref({
                       @click="showNamespaceNew" />
             </div>
             <div class="flex gap-x-2 items-center">
-              <Chip>{{ $t('total') }} {{ store.namespaces.length }}</Chip>
+              <Chip>{{ $t('total') }} {{ list.length }}</Chip>
               <IconField>
                 <InputIcon>
                   <i class="pi pi-search" />
@@ -68,7 +80,7 @@ const filters = ref({
                 <InputText v-model="filters['global'].value"
                            :placeholder="$t('placeholder.search.keywords')" />
               </IconField>
-              <TenantSelect v-model="tenant"></TenantSelect>
+              <TenantSelect class="w-48" v-model="tenant"></TenantSelect>
             </div>
           </div>
         </template>
