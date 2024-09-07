@@ -1,0 +1,12 @@
+{
+  "view.client-certificate": "Client Certificate",
+  "view.client-certificate.detail.title": "New Certificate",
+  "view.client-certificate.name": "Certificate Name",
+  "view.client-certificate.description": "Description",
+  "view.client-certificate.algorithm": "Algorithm",
+  "view.client-certificate.certificateType": "CertificateType ",
+  "view.client-certificate.createdAt": "Created Time",
+  "view.client-certificate.action.new": "New Certificate",
+  "view.client-certificate.error.name": "Name required",
+  "view.client-certificate.error.algorithm": "Algorithm required"
+}

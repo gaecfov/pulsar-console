@@ -1,0 +1,9 @@
+{
+  "view.cluster": "Cluster",
+  "view.cluster.detail.title": "Cluster Detail",
+  "view.cluster.name": "Cluster Name",
+  "view.broker": "Brokers",
+  "view.broker.runtime-configuration": "Runtime Configuration",
+  "view.broker.configuration.column.name": "Parameter",
+  "view.broker.configuration.column.value": "Value"
+}

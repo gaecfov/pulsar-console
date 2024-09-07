@@ -1,0 +1,23 @@
+{
+  "size": "大小",
+  "total": "总数",
+  "ms": "毫秒",
+  "sec": "秒",
+  "minutes": "分钟",
+  "hour": "小时",
+  "day": "天",
+  "week": "周",
+  "month": "月",
+  "year": "年",
+  "none": "无",
+  "bit": "Bit",
+  "bytes": "Bytes",
+  "kilobyte": "KB",
+  "megabyte": "MB",
+  "gigabyte": "GB",
+  "terabyte": "TB",
+  "petabyte": "PB",
+  "success": "成功",
+  "error": "错误",
+  "failed": "失败"
+}

@@ -1,0 +1,23 @@
+{
+  "view.topic": "Topic",
+  "view.topic.form.title": "New Topic",
+  "view.topic.label.auto-refresh": "Auto Refresh",
+  "view.topic.name": "Topic Name",
+  "view.topic.tenant": "Tenant",
+  "view.topic.namespace": "Namespace",
+  "view.topic.persistence": "Persistence",
+  "view.topic.partitioned": "Partitioned",
+  "view.topic.partition-num": "Partition Num",
+  "view.topic.overview": "Overview",
+  "view.topic.publishers": "Publishers",
+  "view.topic.policies": "Polices",
+  "view.topic.subscriptions": "Subscriptions",
+  "view.topic.consumers": "Consumers",
+  "view.topic.storage": "Storage",
+  "view.topic.subscription.skip-num": "Message Num",
+  "view.topic.action.new-topic": "New Topic",
+  "view.topic.action.recent": "Recent",
+  "view.topic.error.name": "Name required",
+  "view.topic.error.tenant": "Tenant required",
+  "view.topic.error.namespace": "Namespace required"
+}

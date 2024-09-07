@@ -1,0 +1,13 @@
+{
+  "menu.instance": "实例",
+  "menu.cluster": "集群",
+  "menu.tenant": "租户",
+  "menu.namespace": "命名空间",
+  "menu.broker": "Broker",
+  "menu.topic": "主题",
+  "menu.client-certificate": "客户端证书",
+  "menu.client-token": "客户端Token",
+  "menu.user": "用户",
+  "menu.management": "管理",
+  "menu.system": "系统"
+}

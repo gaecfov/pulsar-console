@@ -1,0 +1,10 @@
+{
+  "view.tenant": "Tenants",
+  "view.tenant.detail.title": "Tenant Detail",
+  "view.tenant.name": "Tenant",
+  "view.tenant.adminRoles": "Admin Roles",
+  "view.tenant.allowedClusters": "Allowed Clusters",
+  "view.tenant.placeholder.adminRoles": "Please add admin roles",
+  "view.tenant.placeholder.allowedClusters": "Please select allowed clusters",
+  "view.tenant.action.new-tenant": "New Tenant"
+}

@@ -1,0 +1,23 @@
+{
+  "size": "Size",
+  "total": "Total",
+  "ms": "ms",
+  "sec": "s",
+  "minutes": "m",
+  "hour": "H",
+  "day": "d",
+  "week": "w",
+  "month": "M",
+  "year": "Y",
+  "none": "None",
+  "bit": "Bit",
+  "bytes": "Bytes",
+  "kilobyte": "KB",
+  "megabyte": "MB",
+  "gigabyte": "GB",
+  "terabyte": "TB",
+  "petabyte": "PB",
+  "success": "Successful",
+  "error": "Error",
+  "failed": "Failed"
+}

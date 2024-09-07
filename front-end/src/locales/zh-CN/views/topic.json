@@ -1,0 +1,23 @@
+{
+  "view.topic": "主题",
+  "view.topic.form.title": "创建主题",
+  "view.topic.label.auto-refresh": "自动刷新",
+  "view.topic.name": "主题名称",
+  "view.topic.tenant": "租户",
+  "view.topic.namespace": "命名空间",
+  "view.topic.persistence": "持久化类型",
+  "view.topic.partitioned": "分区主题",
+  "view.topic.partition-num": "分区数",
+  "view.topic.overview": "概览",
+  "view.topic.publishers": "发布者",
+  "view.topic.policies": "策略",
+  "view.topic.subscriptions": "订阅者",
+  "view.topic.consumers": "消费者",
+  "view.topic.storage": "存储",
+  "view.topic.subscription.skip-num": "跳过消息数量",
+  "view.topic.action.new-topic": "新建主题",
+  "view.topic.action.recent": "最近",
+  "view.topic.error.name": "主题名称不能为空",
+  "view.topic.error.tenant": "租户不能为空",
+  "view.topic.error.namespace": "命名空间不能为空"
+}

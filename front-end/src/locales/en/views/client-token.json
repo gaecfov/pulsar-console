@@ -1,0 +1,15 @@
+{
+  "view.client-token": "Client Tokens",
+  "view.client-token.detail.title": "New Token",
+  "view.client-token.name": "Token Name",
+  "view.client-token.description": "Description",
+  "view.client-token.clientCertificate": "Client Certificate",
+  "view.client-token.role": "Role",
+  "view.client-token.token": "Token",
+  "view.client-token.expiration": "Expiration",
+  "view.client-token.createdAt": "Created Time",
+  "view.client-token.action.new": "New Token",
+  "view.client-token.error.name": "Name required",
+  "view.client-token.error.role": "Role required",
+  "view.client-token.error.clientCertificateId": "Client certificate required"
+}

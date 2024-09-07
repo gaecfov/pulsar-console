@@ -1,0 +1,23 @@
+{
+  "view.instance": "Instances",
+  "view.instance.detail.title": "Instance Detail",
+  "view.instance.detail.tls": "TLS",
+  "view.instance.name": "Instance Name",
+  "view.instance.webServiceUrl": "Web Service Url",
+  "view.instance.authenticationEnabled": "Authentication Enabled",
+  "view.instance.authenticationToken": "Authentication Token",
+  "view.instance.tlsEnabled": "TLS",
+  "view.instance.tlsType": "TLS Type",
+  "view.instance.tlsCert": "TlS Cert",
+  "view.instance.tlsKey": "TLS Key",
+  "view.instance.tlsTrustCert": "Trust Cert",
+  "view.instance.tlsKeyStoreType": "KeyStore Type",
+  "view.instance.tlsKeyStore": "KeyStore",
+  "view.instance.tlsKeyStorePassword": "KeyStore Password",
+  "view.instance.tlsTrustStoreType": "TrustStore Type",
+  "view.instance.tlsTrustStore": "TrustStore",
+  "view.instance.tlsTrustStorePassword": "TrustStore Password",
+  "view.instance.action.new-instance": "New Instance",
+  "view.instance.error.name": "Name required",
+  "view.instance.error.webServiceUrl": "Web Service Url required"
+}

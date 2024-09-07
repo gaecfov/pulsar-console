@@ -1,0 +1,12 @@
+{
+  "view.client-certificate": "客户端证书",
+  "view.client-certificate.detail.title": "新建证书",
+  "view.client-certificate.name": "证书名称",
+  "view.client-certificate.description": "描述",
+  "view.client-certificate.algorithm": "算法",
+  "view.client-certificate.certificateType": "证书类型",
+  "view.client-certificate.createdAt": "创建时间",
+  "view.client-certificate.action.new": "创建证书",
+  "view.client-certificate.error.name": "证书名称不能为空",
+  "view.client-certificate.error.algorithm": "算法不能为空"
+}

@@ -1,0 +1,13 @@
+{
+  "menu.instance": "Instances",
+  "menu.cluster": "Clusters",
+  "menu.tenant": "Tenants",
+  "menu.namespace": "Namespaces",
+  "menu.broker": "Brokers",
+  "menu.topic": "Topics",
+  "menu.client-certificate": "Client Certificates",
+  "menu.client-token": "Client Tokens",
+  "menu.user": "Users",
+  "menu.management": "Management",
+  "menu.system": "System"
+}

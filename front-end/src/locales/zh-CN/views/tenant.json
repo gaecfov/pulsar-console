@@ -1,0 +1,10 @@
+{
+  "view.tenant": "租户",
+  "view.tenant.detail.title": "创建租户",
+  "view.tenant.name": "租户",
+  "view.tenant.adminRoles": "管理角色",
+  "view.tenant.allowedClusters": "允许集群",
+  "view.tenant.placeholder.adminRoles": "请输入管理角色，按下回车键添加角色",
+  "view.tenant.placeholder.allowedClusters": "请选择集群",
+  "view.tenant.action.new-tenant": "新建租户"
+}

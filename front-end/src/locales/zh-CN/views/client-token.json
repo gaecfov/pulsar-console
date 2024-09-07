@@ -1,0 +1,15 @@
+{
+  "view.client-token": "客户端Token",
+  "view.client-token.detail.title": "新建Token",
+  "view.client-token.name": "Token名称",
+  "view.client-token.description": "描述",
+  "view.client-token.clientCertificate": "证书",
+  "view.client-token.role": "角色",
+  "view.client-token.token": "Token",
+  "view.client-token.expiration": "过期时间",
+  "view.client-token.createdAt": "创建时间",
+  "view.client-token.action.new": "创建Token",
+  "view.client-token.error.name": "Token名称不能为空",
+  "view.client-token.error.role": "角色不能为空",
+  "view.client-token.error.clientCertificateId": "证书不能为空"
+}

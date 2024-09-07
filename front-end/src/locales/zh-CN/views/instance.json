@@ -1,0 +1,24 @@
+{
+  "view.instance": "实例",
+  "view.instance.detail.title": "实例",
+  "view.instance.detail.tls": "TLS",
+  "view.instance.name": "实例名称",
+  "view.instance.webServiceUrl": "Web 服务地址",
+  "view.instance.authenticationEnabled": "身份认证",
+  "view.instance.authenticationToken": "Token",
+  "view.instance.tlsEnabled": "TLS",
+  "view.instance.tlsType": "TLS 类型",
+  "view.instance.tlsCert": "客户端证书",
+  "view.instance.tlsKey": "客户端密钥",
+  "view.instance.tlsTrustCert": "信任证书",
+  "view.instance.tlsKeyStoreType": "KeyStore 类型",
+  "view.instance.tlsKeyStore": "KeyStore",
+  "view.instance.tlsKeyStorePassword": "KeyStore 密码",
+  "view.instance.tlsTrustStoreType": "TrustStore 类型",
+  "view.instance.tlsTrustStore": "TrustStore",
+  "view.instance.tlsTrustStorePassword": "TrustStore 密码",
+  "view.instance.action.new-instance": "新建实例",
+  "view.instance.error.name": "名称不能为空",
+  "view.instance.error.webServiceUrl": "Web 服务地址不能为空"
+}
+
