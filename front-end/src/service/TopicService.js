@@ -110,15 +110,14 @@ export const skipAllMessages = (topic, subName) => {
     `/${topic.persistence}/${topic.tenant}/${topic.namespace}/${topic.topicName}/subscription/${subName}/skip_all`);
 };
 
-
 export const expiryAllMessages = (topic, expireTimeInSeconds) => {
   return adminApi.post(
     `/${topic.persistence}/${topic.tenant}/${topic.namespace}/${topic.topicName}/all_subscription/expireMessages/${expireTimeInSeconds}`);
 };
 
-export const expiryMessages = (topic, subName, expireTimeInSeconds) => {
+export const expiryMessages = (topic, subName) => {
   return adminApi.post(
-    `/${topic.persistence}/${topic.tenant}/${topic.namespace}/${topic.topicName}/${subName}/expireMessages/${expireTimeInSeconds}`);
+    `/${topic.persistence}/${topic.tenant}/${topic.namespace}/${topic.topicName}/subscription/${subName}/expireMessages`);
 };
 
 export const peekMessages = (topic, subName, num) => {

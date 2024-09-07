@@ -36,6 +36,10 @@ watch(() => props.fullTopic, () => {
   reload();
 });
 
+onMounted(()=>{
+  reload();
+})
+
 onActivated(() => {
   if (autoRefresh.value) {
     intervalId = setInterval(reload, 1000 * autoRefreshSeconds.value);

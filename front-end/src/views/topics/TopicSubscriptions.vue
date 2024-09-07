@@ -51,6 +51,12 @@ const showPeekMessages = (subscription) => {
   currentSubscription.value = subscription;
   peekVisible.value = true;
 };
+
+const expirySubscription = (sub) => {
+  ts.expiryMessages(topic.value, sub).then(() => {
+    toastUtil.success();
+  });
+};
 </script>
 
 <template>
@@ -100,6 +106,9 @@ const showPeekMessages = (subscription) => {
                     <ConfirmButton icon="pi pi-fast-forward"
                                    :label="$t('action.skip-all')" size="small"
                                    @confirm="confirmSkipAllMessage(item)"></ConfirmButton>
+                    <ConfirmButton size="small" icon="pi pi-clock"
+                                   @confirm="ts.expiryMessages(topic,item.subscription).then(()=>toastUtil.success())"
+                                   :label="$t('action.expiry-all')"></ConfirmButton>
                     <Button icon="pi pi-eye" :label="$t('action.peek')" size="small"
                             @click="showPeekMessages(item.subscription)"></Button>
                   </div>
