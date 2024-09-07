@@ -41,14 +41,14 @@ const signIn = () => {
                    class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">
               {{ $t('view.auth.login.username') }}</label>
             <InputText id="username" type="text"
-                       :placeholder="$t('common.input.placeholder', [$t('view.auth.login.username')])"
+                       :placeholder="$t('placeholder.input', [$t('view.auth.login.username')])"
                        class="w-full md:w-[30rem] mb-8" v-model="username" />
 
             <label for="password"
                    class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2">
               {{ $t('view.auth.login.password') }}</label>
             <Password id="password" v-model="password"
-                      :placeholder="$t('common.input.placeholder', [$t('view.auth.login.password')])"
+                      :placeholder="$t('placeholder.input', [$t('view.auth.login.password')])"
                       :toggleMask="true" class="mb-4" fluid :feedback="false"
                       @keydown.enter="signIn"></Password>
           </div>
