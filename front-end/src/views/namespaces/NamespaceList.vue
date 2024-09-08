@@ -6,7 +6,7 @@ import NamespaceNew from '@/views/namespaces/NamespaceNew.vue';
 import { deconstructionNamespace } from '@/util/namespace-util';
 import { useRouter } from 'vue-router';
 import { useEmitter } from '@/hooks/useEmitter';
-import * as ns from '@/service/NamespaceService';
+import * as api from '@/service/NamespaceService';
 import { useI18n } from 'vue-i18n';
 import { useFetch } from '@/hooks/useFetch';
 
@@ -14,7 +14,7 @@ const { t } = useI18n();
 const dialog = useDialog();
 const tenant = ref();
 const { list, reload } = useFetch(() => {
-  return ns.listNamespaces(tenant.value);
+  return api.listNamespaces(tenant.value);
 }, (data) => {
   return data.map((x) => {
     return { namespaceName: x };
@@ -24,10 +24,7 @@ const { list, reload } = useFetch(() => {
 watch(() => tenant.value, reload);
 
 const emitter = useEmitter();
-emitter.on('namespace-deleted', () => {
-  reload();
-});
-emitter.on('namespace-created', () => {
+emitter.on('namespace-reload', () => {
   reload();
 });
 

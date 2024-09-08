@@ -1,13 +1,12 @@
 <script setup>
 import PolicyArea from '@/views/components/PolicyArea.vue';
-import PolicyGroup from '@/views/components/PolicyGroup.vue';
 import PolicyItem from '@/views/components/PolicyItem.vue';
 import PolicyValue from '@/views/components/PolicyValue.vue';
 import FormItem from '@/components/FormItem.vue';
-import {getPolicy, postPolicy, removePolicy} from "@/service/TopicService";
-import toastUtil from "@/util/toast-util";
+import { getPolicy, postPolicy, removePolicy } from '@/service/TopicService';
+import toastUtil from '@/util/toast-util';
 
-const topic = inject("topic")
+const topic = inject('topic');
 
 const messageTTL = ref();
 const retention = ref();
@@ -19,36 +18,36 @@ const compactionThresholdValue = ref();
 
 onMounted(() => {
   load();
-})
+});
 
-onActivated(() => {
+watch(() => topic, () => {
   load();
-})
+});
 
 const loadPolicy = (policyName, displayTarget, valueTarget, defaultValue) => {
   getPolicy(topic.value, policyName).then(res => {
     displayTarget.value = res.data;
     valueTarget.value = res.data || defaultValue;
   });
-}
+};
 const load = () => {
   loadPolicy('messageTTL', messageTTL, messageTTLValue);
   loadPolicy('retention', retention, retentionValue, {});
   loadPolicy('compactionThreshold', compactionThreshold, compactionThresholdValue);
-}
+};
 const saveMessageTTL = (close) => {
   postPolicy(topic.value, 'messageTTL', null, {
     messageTTL: messageTTLValue.value
   }).then(() => {
-    toastUtil.success()
+    toastUtil.success();
     loadPolicy('messageTTL', messageTTL, messageTTLValue);
     close();
-  })
-}
+  });
+};
 
 const removeMessageTTL = (close) => {
   removePolicy(topic.value, 'messageTTL').then(() => {
-    toastUtil.success()
+    toastUtil.success();
     loadPolicy('messageTTL', messageTTL, messageTTLValue);
     close();
   });
@@ -56,15 +55,15 @@ const removeMessageTTL = (close) => {
 
 const saveRetention = (close) => {
   postPolicy(topic.value, 'retention', retentionValue.value).then(() => {
-    toastUtil.success()
+    toastUtil.success();
     loadPolicy('retention', retention, retentionValue, {});
     close();
-  })
-}
+  });
+};
 
 const removeRetention = (close) => {
   removePolicy(topic.value, 'retention').then(() => {
-    toastUtil.success()
+    toastUtil.success();
     loadPolicy('retention', retention, retentionValue, {});
     close();
   });
@@ -72,15 +71,15 @@ const removeRetention = (close) => {
 
 const saveCompactionThreshold = (close) => {
   postPolicy(topic.value, 'compactionThreshold', compactionThresholdValue.value).then(() => {
-    toastUtil.success()
+    toastUtil.success();
     loadPolicy('compactionThreshold', compactionThreshold, compactionThresholdValue);
     close();
-  })
-}
+  });
+};
 
 const removeCompactionThreshold = (close) => {
   removePolicy(topic.value, 'compactionThreshold').then(() => {
-    toastUtil.success()
+    toastUtil.success();
     loadPolicy('compactionThreshold', compactionThreshold, compactionThresholdValue);
     close();
   });

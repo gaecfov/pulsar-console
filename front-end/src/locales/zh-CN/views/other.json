@@ -22,6 +22,7 @@
   "view.user.old-password": "原密码",
   "view.user.new-password": "新密码",
   "view.user.confirm-password": "确认密码",
+  "view.user.action.new-user": "新建用户",
   "view.topbar.profile": "个人中心",
   "view.topbar.sign-out": "退出"
 }

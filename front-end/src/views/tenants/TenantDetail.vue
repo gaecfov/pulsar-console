@@ -2,11 +2,13 @@
 import * as ts from '@/service/TenantService';
 import ClusterSelect from '@/views/components/ClusterSelect.vue';
 import toastUtil from '@/util/toast-util';
-import {useRouter} from 'vue-router';
+import { useRouter } from 'vue-router';
 import DetailPage from '@/components/DetailPage.vue';
 import ConfirmDeleteButton from '@/components/ConfirmDeleteButton.vue';
-import {isBlank} from '@/util/assert';
+import { isBlank } from '@/util/assert';
+import { useEmitter } from '@/hooks/useEmitter';
 
+const emitter = useEmitter();
 const router = useRouter();
 const props = defineProps(['tenant']);
 const tenantName = ref(props.tenant);
@@ -33,11 +35,13 @@ const save = () => {
   if (props.tenant) {
     ts.updateTenant(props.tenant, tenantConfig.value).then(() => {
       toastUtil.success();
+      emitter.emit('tenant-reload');
       router.back();
     });
   } else {
     ts.createTenant(tenantName.value, tenantConfig.value).then(() => {
       toastUtil.success();
+      emitter.emit('tenant-reload');
       router.back();
     });
   }
@@ -46,6 +50,7 @@ const save = () => {
 const deleteTenant = () => {
   ts.deleteTenant(props.tenant).then(() => {
     toastUtil.success();
+    emitter.emit('tenant-reload');
     router.back();
   });
 };
@@ -84,7 +89,7 @@ const addRole = () => {
             <div>
               <InputGroup style="width: 20rem">
                 <InputText :placeholder="$t('view.tenant.placeholder.adminRoles')" v-model="roleTemp"
-                           @keydown.enter.prevent="addRole"/>
+                           @keydown.enter.prevent="addRole" />
                 <Button icon="pi pi-plus" @click="addRole"></Button>
               </InputGroup>
             </div>

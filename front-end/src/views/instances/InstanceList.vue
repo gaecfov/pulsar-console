@@ -1,11 +1,19 @@
 <script setup>
 import ConfirmDeleteButton from '@/components/ConfirmDeleteButton.vue';
-import { useInstanceStore } from '@/stroes/useInstanceStore';
 import { useRouter } from 'vue-router';
+import { useEmitter } from '@/hooks/useEmitter';
+import { useFetch } from '@/hooks/useFetch';
+import * as api from '@/service/InstanceService';
+import toastUtil from '@/util/toast-util';
 
-const store = useInstanceStore();
-onActivated(() => {
-  store.reload();
+const emitter = useEmitter();
+const { list, reload } = useFetch(() => {
+  return api.listInstances();
+});
+
+onMounted(() => {
+  reload();
+  emitter.on('instance-reload', reload);
 });
 
 const router = useRouter();
@@ -16,12 +24,20 @@ const goDetail = (instance) => {
     router.push({ name: 'instance-new' });
   }
 };
+
+const deleteInstance = (id) => {
+  api.deleteInstance(id).then(() => {
+    toastUtil.success();
+    emitter.emit('instance-reload');
+    reload();
+  });
+};
 </script>
 <template>
   <Card>
     <template #title> {{ $t('view.instance') }}</template>
     <template #content>
-      <DataTable :value="store.instances" :loading="store.loading" >
+      <DataTable :value="list">
         <template #header>
           <div class="flex flex-wrap gap-2 items-center justify-between">
             <Button :label="$t('view.instance.action.new-instance')" icon="pi pi-plus"
@@ -49,7 +65,7 @@ const goDetail = (instance) => {
           <template #body="{data}">
             <div class="flex items-center gap-4">
               <ConfirmDeleteButton v-permission="'admin'"
-                                   @confirm="store.deleteInstance(data.id)"></ConfirmDeleteButton>
+                                   @confirm="deleteInstance(data.id)"></ConfirmDeleteButton>
             </div>
           </template>
         </Column>

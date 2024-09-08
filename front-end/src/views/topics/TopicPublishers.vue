@@ -17,7 +17,7 @@ const publishers = computed(() => {
               <div class="flex items-center gap-2">
                 <span class="font-bold">{{ producer.producerName }}</span>
                 <Tag>{{ producer.accessMode }}</Tag>
-                <span class="text-muted-color text-sm">{{ $t('connectedSince') }} {{ formatDate(
+                <span class="text-muted-color text-sm">{{ $t('view.topic.connectedSince') }} {{ formatDate(
                   producer.connectedSince) }}</span>
                 <span class="text-muted-color text-sm">{{ producer.address }}</span>
                 <Tag>{{ producer.clientVersion }}</Tag>
@@ -25,9 +25,9 @@ const publishers = computed(() => {
             </div>
           </template>
           <div class="grid grid-cols-4 gap-2">
-            <Metric title="producerId" :value="producer.producerId"></Metric>
-            <Metric title="msgRateIn" :value="formatRate(producer.msgRateIn)"></Metric>
-            <Metric title="averageMsgSize"
+            <Metric title="view.topic.producerId" :value="producer.producerId"></Metric>
+            <Metric title="view.topic.msgRateIn" :value="formatRate(producer.msgRateIn)"></Metric>
+            <Metric title="view.topic.averageMsgSize"
                     :value="formatStorageSize(producer.averageMsgSize)"></Metric>
           </div>
         </Panel>

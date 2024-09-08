@@ -22,6 +22,7 @@
   "view.user.old-password": "Original Password",
   "view.user.new-password": "New Password",
   "view.user.confirm-password": "Confirm Password",
+  "view.user.action.new-user": "New User",
   "view.topbar.profile": "Profile",
   "view.topbar.sign-out": "Sign Out"
 }

@@ -1,16 +1,17 @@
 <script setup>
-import { useUserStore } from '@/stroes/useUserStore';
-import { useGlobalStore } from '@/stroes/useGlobalStore';
 
-const store = useUserStore();
+import { useGlobalStore } from '@/stroes/useGlobalStore';
+import * as api from '@/service/UserService';
+
 const globalStore = useGlobalStore();
+
 const oldPassword = ref();
 const newPassword = ref();
 const confirmPassword = ref();
 
 const dialogRef = inject('dialogRef');
 const save = () => {
-  store.changePassword(globalStore.currentUser.userId, {
+  api.changePassword(globalStore.currentUser.userId, {
     oldPassword: oldPassword.value,
     newPassword: newPassword.value
   }).then(() => {

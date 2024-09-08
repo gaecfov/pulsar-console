@@ -12,7 +12,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <DetailPage>
+  <DetailPage back-route="clusters">
     <template #title>
       {{ cluster }}
     </template>
@@ -20,7 +20,7 @@ onMounted(() => {
       <TabList>
         <Tab value="brokers">
           <router-link :to="{name:'broker-list',params:{cluster:cluster}}">
-            {{ $t('brokers') }}
+            {{ $t('view.broker') }}
           </router-link>
         </Tab>
       </TabList>

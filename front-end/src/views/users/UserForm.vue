@@ -1,16 +1,17 @@
 <script setup>
-import { useUserStore } from '@/stroes/useUserStore';
+import { useEmitter } from '@/hooks/useEmitter';
+import * as api from '@/service/UserService';
 
-const store = useUserStore();
 const user = reactive({
   name: null,
   password: null,
   role: 'USER'
 });
-
+const emitter = useEmitter();
 const dialogRef = inject('dialogRef');
 const save = () => {
-  store.createUser(user).then(() => {
+  api.createUser(user).then(() => {
+    emitter.emit('user-reload');
     dialogRef.value.close();
   });
 };

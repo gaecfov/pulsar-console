@@ -23,6 +23,7 @@ export const useBrokerStore = defineStore('broker-store', () => {
   };
 
   return {
+    cluster,
     brokers,
     leaderBroker,
     leaderBrokerId,

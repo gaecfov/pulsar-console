@@ -19,5 +19,7 @@
   "petabyte": "PB",
   "success": "成功",
   "error": "错误",
-  "failed": "失败"
+  "failed": "失败",
+  "user": "用户",
+  "admin": "管理员"
 }

@@ -1,14 +1,23 @@
 <script setup>
 import { useDialog } from 'primevue/usedialog';
-import { useUserStore } from '@/stroes/useUserStore';
 import UserForm from '@/views/users/UserForm.vue';
 import ConfirmDeleteButton from '@/components/ConfirmDeleteButton.vue';
+import { useFetch } from '@/hooks/useFetch';
+import * as api from '@/service/UserService';
+import { useEmitter } from '@/hooks/useEmitter';
+import toastUtil from '@/util/toast-util';
 
 const dialog = useDialog();
 const { t } = useI18n();
-const store = useUserStore();
+const { list, reload } = useFetch(() => {
+  return api.listUsers();
+});
+
+const emitter = useEmitter();
+emitter.on('user-reload', reload);
+
 onMounted(() => {
-  store.reload();
+  reload();
 });
 
 const showUserForm = () => {
@@ -21,17 +30,24 @@ const showUserForm = () => {
     }
   });
 };
+
+const deleteUser = (id) => {
+  api.deleteUser(id).then(() => {
+    toastUtil.success();
+    emitter.emit('user-reload');
+    reload();
+  });
+};
 </script>
 <template>
   <Card>
     <template #title> {{ $t('view.user') }}</template>
     <template #content>
-      <DataTable :value="store.users" :loading="store.loading">
+      <DataTable :value="list">
         <template #header>
           <div class="flex flex-wrap gap-2 items-center justify-between">
-            <div>
-              <Button :label="$t('action.new-user')" icon="pi pi-plus" severity="secondary" class="mr-2" @click="showUserForm" />
-            </div>
+            <Button :label="$t('view.user.action.new-user')" icon="pi pi-plus"
+                    @click="showUserForm" />
           </div>
         </template>
         <Column field="username" :header="$t('view.user.username')"></Column>
@@ -42,7 +58,7 @@ const showUserForm = () => {
         </Column>
         <Column class="w-60">
           <template #body="{ data }">
-            <ConfirmDeleteButton @delete="store.deleteUser(data.id)"></ConfirmDeleteButton>
+            <ConfirmDeleteButton @confirm="deleteUser(data.id)"></ConfirmDeleteButton>
           </template>
         </Column>
       </DataTable>

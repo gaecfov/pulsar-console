@@ -47,13 +47,13 @@ const isOnline = (sub) => {
 
 const peekVisible = ref(false);
 const currentSubscription = ref();
-const showPeekMessages = (subscription) => {
-  currentSubscription.value = subscription;
+const showPeekMessages = (sub) => {
+  currentSubscription.value = sub.subscription;
   peekVisible.value = true;
 };
 
 const expirySubscription = (sub) => {
-  ts.expiryMessages(topic.value, sub).then(() => {
+  ts.expiryMessages(topic.value, sub.subscription).then(() => {
     toastUtil.success();
   });
 };
@@ -90,7 +90,7 @@ const expirySubscription = (sub) => {
           <Panel v-for="item in items" :key="item.subscription" toggleable>
             <template #header>
               <div class="flex gap-x-2">
-                <span class="font-bold">{{ item.subscription }}</span>
+                <span class="font-bold text-xl">{{ item.subscription }}</span>
                 <Tag>{{ item.type }}</Tag>
                 <Tag v-if="item.durable" severity="secondary">Durable</Tag>
                 <Tag v-if="isOnline(item)" severity="success">Online</Tag>
@@ -107,10 +107,10 @@ const expirySubscription = (sub) => {
                                    :label="$t('action.skip-all')" size="small"
                                    @confirm="confirmSkipAllMessage(item)"></ConfirmButton>
                     <ConfirmButton size="small" icon="pi pi-clock"
-                                   @confirm="ts.expiryMessages(topic,item.subscription).then(()=>toastUtil.success())"
+                                   @confirm="expirySubscription(item)"
                                    :label="$t('action.expiry-all')"></ConfirmButton>
                     <Button icon="pi pi-eye" :label="$t('action.peek')" size="small"
-                            @click="showPeekMessages(item.subscription)"></Button>
+                            @click="showPeekMessages(item)"></Button>
                   </div>
                 </template>
               </Toolbar>

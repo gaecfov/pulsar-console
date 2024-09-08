@@ -16,7 +16,7 @@ const { errors, submit } = useValidate();
 const save = () => {
   submit(schema, namespace.value, () => {
     createNamespace(tenant, namespace.value).then(() => {
-      emitter.emit('namespace-created');
+      emitter.emit('namespace-reload');
       toastUtil.success();
       dialogRef.value.close();
     });

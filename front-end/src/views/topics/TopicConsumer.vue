@@ -10,7 +10,7 @@ defineProps(['consumer']);
       <div class="flex justify-between gap-x-2">
         <div class="flex items-center gap-2">
           {{ consumer.consumerName }}
-          <span class="text-muted-color text-sm">{{ $t('view.topic.consumer.connectedSince') }} {{ formatDate(
+          <span class="text-muted-color text-sm">{{ $t('view.topic.connectedSince') }} {{ formatDate(
             consumer.connectedSince) }}</span>
           <span class="text-muted-color text-sm">{{ consumer.address }}</span>
           <Tag>{{ consumer.clientVersion }}</Tag>

@@ -1,16 +1,16 @@
 <script setup>
-import { useInstanceStore } from '@/stroes/useInstanceStore';
 import * as ins from '@/service/InstanceService';
-import { isEmpty } from '@/util/assert';
 import { useRouter } from 'vue-router';
 import DetailPage from '@/components/DetailPage.vue';
 import ConfirmDeleteButton from '@/components/ConfirmDeleteButton.vue';
 import toastUtil from '@/util/toast-util';
 import * as v from 'valibot';
 import { useValidate } from '@/hooks/useValidate';
+import * as api from '@/service/InstanceService';
+import { useEmitter } from '@/hooks/useEmitter';
 
+const emitter = useEmitter();
 const props = defineProps(['instanceId']);
-const store = useInstanceStore();
 const instance = ref({});
 const keyStoreType = ['JKS', 'PKCS12', 'JCEKS', 'PKCS11', 'BKS'];
 onMounted(() => {
@@ -21,7 +21,7 @@ onActivated(() => {
 });
 const initForm = () => {
   if (props.instanceId) {
-    ins.getInstance(props.instanceId).then(res => {
+    api.getInstance(props.instanceId).then(res => {
       instance.value = res.data;
     });
   } else {
@@ -56,13 +56,15 @@ const { errors, submit } = useValidate();
 const save = () => {
   submit(schema, instance.value, () => {
     if (props.instanceId) {
-      store.modifyInstance(props.instanceId, instance.value).then(() => {
+      api.modifyInstance(props.instanceId, instance.value).then(() => {
         toastUtil.success();
+        emitter.emit('instance-reload');
         router.back();
       });
     } else {
-      store.createInstance(instance.value).then(() => {
+      api.createInstance(instance.value).then(() => {
         toastUtil.success();
+        emitter.emit('instance-reload');
         router.back();
       });
     }
@@ -70,12 +72,12 @@ const save = () => {
 };
 
 const deleteInstance = () => {
-  store.deleteInstance(props.instanceId).then(() => {
+  api.deleteInstance(props.instanceId).then(() => {
     toastUtil.success();
+    emitter.emit('instance-reload');
     router.back();
   });
 };
-
 
 </script>
 
@@ -98,7 +100,7 @@ const deleteInstance = () => {
                      class="w-80" />
         </FormItem>
         <FormItem title="view.instance.tlsEnabled">
-          <ToggleSwitch id="tlsEnabled" v-model="instance.tlsEnabled"/>
+          <ToggleSwitch id="tlsEnabled" v-model="instance.tlsEnabled" />
         </FormItem>
         <FormItem title="view.instance.tlsType">
           <SelectButton v-model="instance.tlsType" :options="['PEM','KeyStore']"></SelectButton>

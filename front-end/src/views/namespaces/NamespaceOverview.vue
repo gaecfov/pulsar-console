@@ -81,7 +81,7 @@ const router = useRouter();
 const deleteNamespace = () => {
   ns.deleteNamespace(props.tenant, props.namespace).then(() => {
     toastUtil.success();
-    emitter.emit('namespace-deleted');
+    emitter.emit('namespace-reload');
     router.push({
       name: 'namespaces'
     });

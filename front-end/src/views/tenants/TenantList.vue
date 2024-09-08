@@ -1,27 +1,32 @@
 <script setup>
-import { useDialog } from 'primevue/usedialog';
-import { useTenantStore } from '@/stroes/useTenantStore';
 import ConfirmDeleteButton from '@/components/ConfirmDeleteButton.vue';
 import { useEmitter } from '@/hooks/useEmitter';
 import { useRouter } from 'vue-router';
+import { useFetch } from '@/hooks/useFetch';
+import * as api from '@/service/TenantService';
+import toastUtil from '@/util/toast-util';
 
-const { t } = useI18n();
-const dialog = useDialog();
-const store = useTenantStore();
 const emitter = useEmitter();
 const router = useRouter();
 
-onActivated(() => {
-  store.reload();
-  emitter.on('instance-changed', store.reload);
+const { list, reload } = useFetch(() => {
+  return api.listTenants();
+}, data => {
+  return data.map((x) => {
+    return { tenantName: x };
+  });
 });
 
-onDeactivated(() => {
-  emitter.off('instance-changed');
+onMounted(() => {
+  reload();
 });
+emitter.on('tenant-reload', reload);
 
 const deleteTenant = (tenant) => {
-  store.deleteTenant(tenant);
+  api.deleteTenant(tenant).then(() => {
+    toastUtil.success();
+    reload();
+  });
 };
 
 const goDetail = (tenant) => {
@@ -32,7 +37,7 @@ const goDetail = (tenant) => {
 };
 const goNew = () => {
   router.push({
-    name: 'tenant-new',
+    name: 'tenant-new'
   });
 };
 </script>
@@ -40,7 +45,7 @@ const goNew = () => {
   <Card>
     <template #title>{{ $t('view.tenant') }}</template>
     <template #content>
-      <DataTable :value="store.tenants">
+      <DataTable :value="list">
         <template #header>
           <div class="flex flex-wrap gap-2 items-center justify-between">
             <div>
@@ -57,7 +62,7 @@ const goNew = () => {
 
         <Column class="w-60">
           <template #body="{ data }">
-            <ConfirmDeleteButton @delete="deleteTenant(data.tenantName)"></ConfirmDeleteButton>
+            <ConfirmDeleteButton @confirm="deleteTenant(data.tenantName)"></ConfirmDeleteButton>
           </template>
         </Column>
       </DataTable>

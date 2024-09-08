@@ -3,7 +3,6 @@ import { listClusters } from '@/service/ClusterService';
 import { useEmitter } from '@/hooks/useEmitter';
 
 const router = useRouter();
-
 const emitter = useEmitter();
 
 const clusters = ref([]);

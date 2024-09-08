@@ -20,7 +20,7 @@ adminApi.interceptors.request.use((config) => {
   const store = useGlobalStore();
   if (!store.instanceId) {
     return Promise.reject(
-      new Error(global.t('error.message.instance-id-required')));
+      new Error(global.t('error.message.instance-missed')));
   }
   // 在请求头中添加认证令牌
   if (store.isLogin) {

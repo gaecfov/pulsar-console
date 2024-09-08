@@ -1,7 +1,7 @@
 {
   "view.cluster": "集群",
   "view.cluster.detail.title": "集群详情",
-  "view.cluster.name": "集群",
+  "view.cluster.name": "集群名称",
   "view.broker": "Brokers",
   "view.broker.runtime-configuration": "运行时配置",
   "view.broker.configuration.column.name": "参数",
