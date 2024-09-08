@@ -14,10 +14,10 @@ const topic = inject('topic');
         <div class="flex gap-2">
           <ConfirmButton size="small" icon="pi pi-ban"
                          @confirm="terminatePartitions(topic).then(()=>toastUtil.success())"
-                         :label="$t('action.terminate-all')"></ConfirmButton>
+                         :label="$t('view.topic.action.terminate-all')"></ConfirmButton>
           <ConfirmButton size="small" icon="pi pi-trash" severity="danger"
                          @confirm="deletePartitions(topic).then(()=>toastUtil.success())"
-                         :label="$t('action.delete-all')"></ConfirmButton>
+                         :label="$t('view.topic.action.delete-all')"></ConfirmButton>
         </div>
       </template>
     </Toolbar>

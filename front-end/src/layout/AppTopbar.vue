@@ -86,7 +86,7 @@ if (isDarkTheme.value) {
       </router-link>
     </div>
     <div class="layout-topbar-actions">
-      <InstanceSelect v-model="store.instanceId"></InstanceSelect>
+      <InstanceSelect class="w-52" v-model="store.instanceId"></InstanceSelect>
       <div class="layout-config-menu">
         <button type="button" class="layout-topbar-action" @click="toggleDarkMode">
           <i :class="['pi', { 'pi-moon': isDarkTheme, 'pi-sun': !isDarkTheme }]"></i>

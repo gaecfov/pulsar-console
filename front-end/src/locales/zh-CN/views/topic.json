@@ -37,8 +37,22 @@
   "view.topic.consumer.lastAckedTime": "最后确认时间",
   "view.topic.consumer.lastConsumedTime": "最后消费时间",
   "view.topic.action.new-topic": "新建主题",
-  "view.topic.action.recent": "最近",
+  "view.topic.action.recent": "最近主题",
+  "view.topic.action.delete": "删除",
+  "view.topic.action.unload": "卸载",
+  "view.topic.action.delete-all": "删除全部分区",
+  "view.topic.action.truncate": "清空分区",
+  "view.topic.action.terminate": "终止分区",
+  "view.topic.action.terminate-all": "终止全部分区",
+  "view.topic.action.trim": "收缩",
+  "view.topic.action.skip": "跳过消息",
+  "view.topic.action.peek": "查看消息",
+  "view.topic.action.skip-all": "全部跳过",
+  "view.topic.action.expiry": "过期过期",
+  "view.topic.action.expiry-all": "全部过期",
+  "view.topic.action.split": "拆分",
   "view.topic.error.name": "主题名称不能为空",
   "view.topic.error.tenant": "租户不能为空",
   "view.topic.error.namespace": "命名空间不能为空"
+
 }

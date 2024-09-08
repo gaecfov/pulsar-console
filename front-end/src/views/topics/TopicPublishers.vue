@@ -15,7 +15,7 @@ const publishers = computed(() => {
           <template #header>
             <div class="flex-grow flex justify-between gap-x-2 pr-4">
               <div class="flex items-center gap-2">
-                <span class="font-bold">{{ producer.producerName }}</span>
+                <span class="font-bold text-lg">{{ producer.producerName }}</span>
                 <Tag>{{ producer.accessMode }}</Tag>
                 <span class="text-muted-color text-sm">{{ $t('view.topic.connectedSince') }} {{ formatDate(
                   producer.connectedSince) }}</span>

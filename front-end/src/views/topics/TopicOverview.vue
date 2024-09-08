@@ -34,14 +34,14 @@ const terminate = () => {
           <div class="flex gap-2">
             <ConfirmButton size="small" icon="pi pi-sync"
                            @confirm="unload"
-                           :label="$t('action.unload')"></ConfirmButton>
+                           :label="$t('view.topic.action.unload')"></ConfirmButton>
             <ConfirmButton size="small" icon="pi pi-trash" severity="danger"
                            @confirm="deleteTopic"
-                           :label="$t('action.delete')"></ConfirmButton>
+                           :label="$t('view.topic.action.delete')"></ConfirmButton>
             <ConfirmButton size="small" icon="pi pi-ban"
                            severity="danger"
                            @confirm="terminate"
-                           :label="$t('action.terminate')"></ConfirmButton>
+                           :label="$t('view.topic.action.terminate')"></ConfirmButton>
           </div>
         </template>
       </Toolbar>

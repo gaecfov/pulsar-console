@@ -37,10 +37,10 @@ const cursors = computed(() => {
           <div class="flex gap-2">
             <ConfirmButton size="small" icon="pi pi-refresh"
                            @confirm="trim(topic).then(()=>toastUtil.success())"
-                           :label="$t('action.trim')"></ConfirmButton>
+                           :label="$t('view.topic.action.trim')"></ConfirmButton>
             <ConfirmButton size="small" icon="pi pi-sign-out"
                            @confirm="truncate(topic).then(()=>toastUtil.success())"
-                           :label="$t('action.truncate')"></ConfirmButton>
+                           :label="$t('view.topic.action.truncate')"></ConfirmButton>
           </div>
         </template>
       </MetricCard>

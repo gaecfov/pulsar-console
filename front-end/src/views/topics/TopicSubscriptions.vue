@@ -9,7 +9,6 @@ import { useI18n } from 'vue-i18n';
 import PeekMessages from '@/views/topics/PeekMessages.vue';
 import ConfirmButton from '@/components/ConfirmButton.vue';
 
-const { t } = useI18n();
 const stats = inject('topic-stats');
 const topic = inject('topic');
 const subscriptions = computed(() => {
@@ -23,7 +22,7 @@ const subscriptions = computed(() => {
 
 const confirm = useConfirm();
 const confirmSkipAllMessage = (sub) => {
-  ts.skipAllMessages(topic, sub.subscription).then(() => {
+  ts.skipAllMessages(topic.value, sub.subscription).then(() => {
     toastUtil.success();
   });
 };
@@ -34,7 +33,7 @@ const confirmSkipMessage = (event, sub) => {
     target: event.currentTarget,
     group: 'skipMessages',
     accept: () => {
-      ts.skipMessages(topic, sub.subscription, skipNum.value).then(() => {
+      ts.skipMessages(topic.value, sub.subscription, skipNum.value).then(() => {
         toastUtil.success();
       });
     }
@@ -80,7 +79,7 @@ const expirySubscription = (sub) => {
         <div class="flex gap-2">
           <ConfirmButton size="small" icon="pi pi-clock" severity="danger"
                          @confirm="ts.expiryAllMessages(topic,0).then(()=>toastUtil.success())"
-                         :label="$t('action.expiry-all')"></ConfirmButton>
+                         :label="$t('view.topic.action.expiry-all')"></ConfirmButton>
         </div>
       </template>
     </Toolbar>
@@ -101,16 +100,17 @@ const expirySubscription = (sub) => {
               <Toolbar>
                 <template #start>
                   <div class="flex gap-2">
-                    <Button icon="pi pi-forward" :label="$t('action.skip')" size="small"
+                    <Button icon="pi pi-eye" :label="$t('view.topic.action.peek')" size="small"
+                            @click="showPeekMessages(item)"></Button>
+                    <Button icon="pi pi-forward" :label="$t('view.topic.action.skip')" size="small"
                             @click="confirmSkipMessage($event, item)"></Button>
                     <ConfirmButton icon="pi pi-fast-forward"
-                                   :label="$t('action.skip-all')" size="small"
+                                   :label="$t('view.topic.action.skip-all')" size="small"
                                    @confirm="confirmSkipAllMessage(item)"></ConfirmButton>
                     <ConfirmButton size="small" icon="pi pi-clock"
                                    @confirm="expirySubscription(item)"
-                                   :label="$t('action.expiry-all')"></ConfirmButton>
-                    <Button icon="pi pi-eye" :label="$t('action.peek')" size="small"
-                            @click="showPeekMessages(item)"></Button>
+                                   :label="$t('view.topic.action.expiry-all')"></ConfirmButton>
+
                   </div>
                 </template>
               </Toolbar>

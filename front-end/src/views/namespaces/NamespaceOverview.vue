@@ -97,7 +97,7 @@ const deleteNamespace = () => {
             <ConfirmButton icon="pi pi-sync" :label="$t('view.namespace.action.unload-all')"
                            @click="unloadAll"></ConfirmButton>
             <ConfirmButton icon="pi pi-times"
-                           :label="$t('view.namespace.action.clean-all-backlog')"
+                           :label="$t('view.namespace.action.clear-all-backlog')"
                            @click="cleanAllBacklog"></ConfirmButton>
           </div>
         </template>
