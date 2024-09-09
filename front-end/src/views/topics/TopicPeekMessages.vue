@@ -62,7 +62,7 @@ const toJson = (json) => {
 const batchSize = computed(() => {
   return headers['x-pulsar-batch-size'] ?? undefined;
 });
-const batchNumber = computed(() => {
+const numBatchMessage = computed(() => {
   return headers['num-batch-message'] ?? undefined;
 });
 </script>
@@ -72,9 +72,9 @@ const batchNumber = computed(() => {
     <Toolbar>
       <template #start>
         <div class="flex gap-2 items-center">
-          {{ $t('messagePosition') }}
+          {{ $t('view.topic.peek.messagePosition') }}
           <InputNumber v-model="num"></InputNumber>
-          <Button :label="$t('action.peek')" icon="pi pi-eye"
+          <Button :label="$t('view.topic.action.peek')" icon="pi pi-eye"
                   @click="peek"></Button>
         </div>
       </template>
@@ -84,14 +84,14 @@ const batchNumber = computed(() => {
     </Toolbar>
     <div class="flex flex-col gap-4">
       <div class="grid grid-cols-4 gap-4 p4" v-if="headers">
-        <Metric title="x-pulsar-producer-name"
+        <Metric title="view.topic.peek.producerName"
                 :value="headers['x-pulsar-producer-name']"></Metric>
-        <Metric title="x-pulsar-publish-time"
+        <Metric title="view.topic.peek.publishTime"
                 :value="formatDate(headers['x-pulsar-publish-time'])"></Metric>
-        <Metric title="x-pulsar-batch-size" v-if="batchSize"
+        <Metric title="view.topic.peek.batchSize" v-if="batchSize"
                 :value="batchSize"></Metric>
-        <Metric title="x-pulsar-num-batch-message" v-if="batchNumber"
-                :value="batchNumber"></Metric>
+        <Metric title="view.topic.peek.numBatchMessage" v-if="numBatchMessage"
+                :value="numBatchMessage"></Metric>
       </div>
       <div v-if="dataType==='object'">
         <JsonViewer :json="data"></JsonViewer>

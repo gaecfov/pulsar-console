@@ -5,9 +5,8 @@ import { useConfirm } from 'primevue/useconfirm';
 import * as ts from '@/service/TopicService';
 import toastUtil from '@/util/toast-util';
 import { formatRate } from '@/util/formatter';
-import { useI18n } from 'vue-i18n';
-import PeekMessages from '@/views/topics/PeekMessages.vue';
 import ConfirmButton from '@/components/ConfirmButton.vue';
+import TopicPeekMessages from '@/views/topics/TopicPeekMessages.vue';
 
 const stats = inject('topic-stats');
 const topic = inject('topic');
@@ -60,8 +59,8 @@ const expirySubscription = (sub) => {
 
 <template>
   <Drawer v-model:visible="peekVisible" position="right" class="!w-1/2"
-          :header="$t('action.peek')">
-    <PeekMessages :topic="topic" :subscription="currentSubscription"></PeekMessages>
+          :header="$t('view.topic.action.peek')">
+    <TopicPeekMessages :topic="topic" :subscription="currentSubscription"></TopicPeekMessages>
   </Drawer>
   <ConfirmPopup group="skipMessages">
     <template #message>

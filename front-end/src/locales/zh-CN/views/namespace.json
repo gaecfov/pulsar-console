@@ -18,7 +18,7 @@
   "view.namespace.analysis.storageSize": "存储大小",
   "view.namespace.action.new-namespace": "新建命名空间",
   "view.namespace.action.unload-all": "卸载全部",
-  "view.namespace.action.clean-all-backlog": "清除所有积压",
+  "view.namespace.action.clear-all-backlog": "清除所有积压",
   "view.namespace.action.split": "拆分",
   "view.namespace.action.unload": "卸载",
   "view.namespace.action.clear-backlog": "清除积压",
