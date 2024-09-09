@@ -21,5 +21,6 @@
   "action.go-back": "GoBack",
   "action.shutdown": "Shutdown",
   "action.download": "Download",
-  "action.remove": "Remove"
+  "action.remove": "Remove",
+  "action.go-home": "Go Home"
 }

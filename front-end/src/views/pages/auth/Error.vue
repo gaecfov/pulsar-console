@@ -16,7 +16,7 @@ import FloatingConfigurator from '@/components/FloatingConfigurator.vue';
             <span class="text-muted-color mb-8">{{ $t('view.pages.error.description') }}</span>
             <img src="/images/error/asset-error.svg" alt="Error" class="mb-8" width="80%" />
             <div class="col-span-12 mt-8 text-center">
-              <Button as="router-link" :label="$t('common.go-home')" to="/" severity="danger" />
+              <Button as="router-link" :label="$t('action.go-home')" to="/" severity="danger" />
             </div>
           </div>
         </div>
