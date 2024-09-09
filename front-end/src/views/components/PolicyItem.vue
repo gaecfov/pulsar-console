@@ -3,7 +3,7 @@ import ConfirmButton from '@/components/ConfirmButton.vue';
 
 defineProps({
   title: {
-    type: String,
+    type: String
   },
   display: {
     required: true
@@ -38,7 +38,7 @@ const onRemove = (closeCallback) => {
     <Inplace :displayProps="{style:{display:'block'}}">
       <template #display>
         <div class="flex gap-2">
-          <template v-if="display">
+          <template v-if="display!==undefined">
             <slot name="display" :data="display">
               {{ display }}
               <template v-if="unit">

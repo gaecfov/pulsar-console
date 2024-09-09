@@ -49,7 +49,7 @@ const changeDefaultNumPartitions = (topicType) => {
         </FormItem>
         <FormItem title="view.components.defaultNumPartitions"
                   v-if="policyValue.topicType==='partitioned'">
-          <InputNumber v-model="policyValue.defaultNumPartitions" min="1"
+          <InputNumber v-model="policyValue.defaultNumPartitions" :min="1"
                        show-buttons></InputNumber>
         </FormItem>
       </div>
