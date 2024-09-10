@@ -128,8 +128,9 @@ const toggleTopicRecentPopover = (event) => {
               />
             </IconField>
             <template v-if="freeMode">
-              <TenantSelect v-model="currentTenant"></TenantSelect>
+              <TenantSelect v-model="currentTenant" class="w-40"></TenantSelect>
               <NamespaceSelect
+                class="w-40"
                 :tenant="currentTenant"
                 v-model="currentNamespace"
               ></NamespaceSelect>
