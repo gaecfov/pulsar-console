@@ -7,16 +7,17 @@ const tenants = ref([]);
 const model = defineModel();
 const emitter = useEmitter();
 
-onActivated(() => {
-  emitter.on('instance-changed', (e) => {
-    model.value = null;
-    reload();
-  });
-});
-
-onMounted(() => {
+emitter.on('instance-reload', (e) => {
+  model.value = null;
   reload();
 });
+emitter.on('tenant-reload', (e) => {
+  reload();
+});
+
+onMounted(()=>{
+  reload();
+})
 
 const reload = () => {
   listTenants().then((rsp) => {
@@ -32,5 +33,5 @@ const reload = () => {
 
 <template>
   <Select v-bind="$attrs" v-model="model" filter :options="tenants"
-          :placeholder="$t('placeholder.select',$t('view.tenant'))"/>
+          :placeholder="$t('placeholder.select',$t('view.tenant'))" />
 </template>
