@@ -1,6 +1,4 @@
-export const simplifyTopic = (topic) => {
-  return { topicName: topic.replace(/^persistent:\/\//, '') };
-};
+
 export const isSystemTopic = (fullTopic) => {
   if (/.*-RETRY.*/.test(fullTopic)) {
     return true;
