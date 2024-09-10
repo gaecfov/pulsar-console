@@ -43,9 +43,9 @@ public class PulsarProxyHttpClientService implements ApplicationListener<Instanc
   public PulsarProxyHttpClientService(InstanceService instanceService) {
     this.instanceService = instanceService;
     this.httpClientCache = Caffeine.newBuilder()
-        .maximumSize(5)
-        .expireAfterWrite(Duration.ofMinutes(5))
-        .build();
+      .maximumSize(5)
+      .expireAfterWrite(Duration.ofMinutes(5))
+      .build();
   }
 
   public Pair<Instance, CloseableHttpClient> getHttpClient(Long instanceId) {
@@ -56,16 +56,16 @@ public class PulsarProxyHttpClientService implements ApplicationListener<Instanc
       }
       Instance instance = optional.get();
       CloseableHttpClient httpClient =
-          instance.isTlsEnabled() ? createSSLHttpClient(instance) : createHttpClient(instance);
+        instance.isTlsEnabled() ? createSSLHttpClient(instance) : createHttpClient(instance);
       return Pair.of(instance, httpClient);
     });
   }
 
   private @PolyNull CloseableHttpClient createHttpClient(Instance instance) {
     return HttpClients.custom()
-        .addRequestInterceptorLast(new PulsarRequestInterceptor(instance))
-        .disableAutomaticRetries()
-        .build();
+      .addRequestInterceptorLast(new PulsarRequestInterceptor(instance))
+      .disableAutomaticRetries()
+      .build();
   }
 
   private @PolyNull CloseableHttpClient createSSLHttpClient(Instance instance) {
@@ -77,32 +77,33 @@ public class PulsarProxyHttpClientService implements ApplicationListener<Instanc
         httpClientBuilder = createSSLHttpClientWithJKS(instance);
       }
       return httpClientBuilder
-          .setDefaultRequestConfig(
-              RequestConfig
-                  .custom()
-                  .setConnectionRequestTimeout(Timeout.ofSeconds(5))
-                  .build())
-          .addRequestInterceptorLast(new PulsarRequestInterceptor(instance))
-          .disableAutomaticRetries()
-          .build();
+        .setDefaultRequestConfig(
+          RequestConfig
+            .custom()
+            .setConnectionRequestTimeout(Timeout.ofSeconds(60))
+            .setResponseTimeout(Timeout.ofSeconds(60))
+            .build())
+        .addRequestInterceptorLast(new PulsarRequestInterceptor(instance))
+        .disableAutomaticRetries()
+        .build();
     } catch (Exception e) {
       throw new InvalidTlsConfigurationException();
     }
   }
 
   private @PolyNull HttpClientBuilder createSSLHttpClientWithJKS(Instance instance)
-      throws CertificateException, IOException, NoSuchAlgorithmException, KeyStoreException, UnrecoverableKeyException, KeyManagementException {
+    throws CertificateException, IOException, NoSuchAlgorithmException, KeyStoreException, UnrecoverableKeyException, KeyManagementException {
     KeyStore keyStore = TLSUtils.loadKeyStore(instance.getTlsKeyStoreType(),
-        instance.getTlsKeyStore(),
-        instance.getTlsKeyStorePassword());
+      instance.getTlsKeyStore(),
+      instance.getTlsKeyStorePassword());
     KeyStore trustStore = TLSUtils.loadKeyStore(instance.getTlsTrustStoreType(),
-        instance.getTlsTrustStore(),
-        instance.getTlsTrustStorePassword());
+      instance.getTlsTrustStore(),
+      instance.getTlsTrustStorePassword());
     return HttpClientUtils.getHttpClientBuildWithTls(keyStore, trustStore);
   }
 
   private @PolyNull HttpClientBuilder createSSLHttpClientWithPEM(Instance instance)
-      throws CertificateException, KeyStoreException, IOException, NoSuchAlgorithmException, UnrecoverableKeyException, KeyManagementException {
+    throws CertificateException, KeyStoreException, IOException, NoSuchAlgorithmException, UnrecoverableKeyException, KeyManagementException {
     String certText = instance.getTlsCert();
     String keyText = instance.getTlsKey();
     String trustCertText = instance.getTlsTrustCert();
