@@ -36,13 +36,16 @@ public class ClientTokenController {
     ClientToken clientToken = new ClientToken();
     clientToken.setName(request.getName());
     clientToken.setDescription(request.getDescription());
+    clientToken.setRole(request.getRole());
     clientToken.setExpiration(request.getExpiration());
-    ClientCertificate clientCertificate = clientCertificateService.getById(request.getClientCertificateId());
+    ClientCertificate clientCertificate = clientCertificateService.getById(
+      request.getClientCertificateId());
     Key key;
     if (clientCertificate.getCertificateType().equalsIgnoreCase("SECRET")) {
       key = AuthTokenUtils.decodeSecretKey(clientCertificate.getSecretKey());
     } else {
-      key = AuthTokenUtils.decodePrivateKey(clientCertificate.getPrivateKey(), clientCertificate.getAlgorithm());
+      key = AuthTokenUtils.decodePrivateKey(clientCertificate.getPrivateKey(),
+        clientCertificate.getAlgorithm());
     }
     String token = AuthTokenUtils.createToken(request.getRole(), key, request.getExpiration());
     clientToken.setToken(token);

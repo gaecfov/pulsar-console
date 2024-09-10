@@ -30,6 +30,8 @@ public class ClientToken implements Serializable {
   @NotEmpty(message = "name cannot be null")
   private String name;
   private String description;
+  @NotEmpty(message = "role cannot be null")
+  private String role;
   @NotEmpty(message = "token cannot be null")
   @Lob
   @Column(columnDefinition = "TEXT")

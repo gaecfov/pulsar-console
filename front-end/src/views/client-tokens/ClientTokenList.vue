@@ -33,6 +33,19 @@ const deleteToken = (token) => {
     reload();
   });
 };
+
+const expirationSeverity = (expiration) => {
+  const expirationDate = new Date(expiration);
+  const now = new Date();
+  const remainingDays = Math.floor((expirationDate - now) / (1000 * 60 * 60 * 24));
+  if (remainingDays < 3) {
+    return 'danger';
+  } else if (remainingDays < 7) {
+    return 'warn';
+  } else {
+    return 'success';
+  }
+};
 </script>
 <template>
   <Card>
@@ -51,6 +64,14 @@ const deleteToken = (token) => {
           </template>
         </Column>
         <Column field="description" :header="$t('view.client-token.description')"></Column>
+        <Column field="role" :header="$t('view.client-token.role')"></Column>
+        <Column field="expiration" :header="$t('view.client-token.expiration')">
+          <template #body="{data}">
+            <Tag v-if="data.expiration" :severity="expirationSeverity(data.expiration)">
+              {{ formatDate(data.expiration, 'yyyy-MM-dd') }}
+            </Tag>
+          </template>
+        </Column>
         <Column field="token" :header="$t('view.client-token.token')">
           <template #body="{data}">
             <div class="flex items-center">
