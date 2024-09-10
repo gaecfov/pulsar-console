@@ -21,7 +21,13 @@ const { list, reload } = useFetch(() => {
   });
 });
 
-watch(() => tenant.value, reload);
+watch(() => tenant.value, () => {
+  if (tenant.value) {
+    reload();
+  } else {
+    list.value = [];
+  }
+});
 
 const emitter = useEmitter();
 emitter.on('namespace-reload', () => {

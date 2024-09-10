@@ -9,7 +9,7 @@ export const useGlobalStore = defineStore('global-store', () => {
   const currentUser = useStorage('currentUser', {});
 
   watch(instanceId, (val) => {
-    emitter.emit('instance-changed', val);
+    emitter.emit('current-instance-changed', val);
   });
 
   const isLogin = computed(() => {

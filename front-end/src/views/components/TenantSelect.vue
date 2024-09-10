@@ -7,7 +7,7 @@ const tenants = ref([]);
 const model = defineModel();
 const emitter = useEmitter();
 
-emitter.on('instance-reload', (e) => {
+emitter.on('current-instance-changed', (e) => {
   model.value = null;
   reload();
 });
