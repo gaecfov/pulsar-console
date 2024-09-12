@@ -12,7 +12,6 @@ import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.core5.http.ClassicHttpRequest;
 import org.apache.hc.core5.http.ContentType;
-import org.apache.hc.core5.http.Header;
 import org.apache.hc.core5.http.io.entity.ByteArrayEntity;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.springframework.data.util.Pair;
@@ -40,17 +39,17 @@ public class ProxyController {
 
   @RequestMapping(value = "/proxy/**")
   public ResponseEntity<byte[]> proxyRequest(HttpMethod method, HttpServletRequest request,
-      @RequestHeader(value = "X-PULSAR-INSTANCE-ID", defaultValue = "1") Long instanceId,
-      @RequestHeader(value = "X-ORIGIN-DOMAIN", required = false) String originDomain,
-      @RequestBody(required = false) byte[] body) {
+    @RequestHeader(value = "X-PULSAR-INSTANCE-ID", defaultValue = "1") Long instanceId,
+    @RequestHeader(value = "X-ORIGIN-DOMAIN", required = false) String originDomain,
+    @RequestBody(required = false) byte[] body) {
 
     Pair<Instance, CloseableHttpClient> httpClientPair = pulsarProxyHttpClientService.getHttpClient(
-        instanceId);
+      instanceId);
     Instance instance = httpClientPair.getFirst();
     CloseableHttpClient httpClient = httpClientPair.getSecond();
 
     String url = StringUtils.concat(getFrowardDomain(instance, originDomain),
-        request.getRequestURI().substring("/proxy".length()));
+      request.getRequestURI().substring("/proxy".length()));
     String queryParams = request.getQueryString();
     if (queryParams != null) {
       url += "?" + queryParams;
@@ -59,18 +58,15 @@ public class ProxyController {
     try {
       return httpClient.execute(httpRequest, res -> {
         BodyBuilder bodyBuilder = ResponseEntity.status(res.getCode());
-        for (Header header : res.getHeaders()) {
-          bodyBuilder.header(header.getName(), header.getValue());
-        }
         if (res.getEntity() != null) {
           byte[] byteArray = EntityUtils.toByteArray(res.getEntity());
-          return  bodyBuilder.body(byteArray);
+          return bodyBuilder.body(byteArray);
         }
         return bodyBuilder.build();
       });
     } catch (IOException e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .body("Request Failed".getBytes(StandardCharsets.UTF_8));
+        .body("Request Failed".getBytes(StandardCharsets.UTF_8));
     }
   }
 
