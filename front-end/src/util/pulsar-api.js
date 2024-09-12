@@ -11,6 +11,7 @@ const debouncedError = useDebounceFn(message =>
 
 const adminApi = axios.create({
   baseURL: '/proxy/admin/v2',
+  timeout: 60000,
   headers: {
     'Content-Type': 'application/json',
     Accept: '*/*'

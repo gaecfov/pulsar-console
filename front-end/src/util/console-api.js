@@ -6,6 +6,7 @@ import { i18n } from '@/i18n.config';
 
 const { global } = i18n;
 const consoleApi = axios.create({
+  timeout: 60000,
   baseURL: '/api',
   headers: {
     'Content-Type': 'application/json'
