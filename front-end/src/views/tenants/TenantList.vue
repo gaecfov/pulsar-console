@@ -21,6 +21,7 @@ onMounted(() => {
   reload();
 });
 emitter.on('tenant-reload', reload);
+emitter.on('current-instance-changed', reload);
 
 const deleteTenant = (tenant) => {
   api.deleteTenant(tenant).then(() => {
