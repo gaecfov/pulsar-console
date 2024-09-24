@@ -1,0 +1,9 @@
+{
+  "view.subscription-relationship": "Subscription Relationship",
+  "view.subscription-relationship.topic": "Topic",
+  "view.subscription-relationship.subscription": "Subscription",
+  "view.subscription-relationship.tenant": "Tenant",
+  "view.subscription-relationship.namespace": "Namespace",
+  "view.subscription-relationship.sync-complete": "Sync Complete",
+  "view.subscription-relationship.action.sync": "Sync"
+}

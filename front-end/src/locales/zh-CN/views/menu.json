@@ -9,5 +9,6 @@
   "menu.client-token": "客户端Token",
   "menu.user": "用户",
   "menu.management": "管理",
-  "menu.system": "系统"
+  "menu.system": "系统",
+  "menu.subscription-relationship": "订阅关系"
 }

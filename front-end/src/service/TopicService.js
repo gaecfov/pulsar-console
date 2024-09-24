@@ -124,3 +124,8 @@ export const peekMessages = (topic, subName, num) => {
   return adminApi.get(
     `/${topic.persistence}/${topic.tenant}/${topic.namespace}/${topic.topicName}/subscription/${subName}/position/${num}`);
 };
+
+export const getSubscriptions = (topic)=>{
+  return adminApi.get(
+    `/${topic.persistence}/${topic.tenant}/${topic.namespace}/${topic.topicName}/subscriptions`);
+}

@@ -9,5 +9,6 @@
   "menu.client-token": "Client Tokens",
   "menu.user": "Users",
   "menu.management": "Management",
-  "menu.system": "System"
+  "menu.system": "System",
+  "menu.subscription-relationship": "Subscription Relationship"
 }

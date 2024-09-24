@@ -12,6 +12,7 @@ import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.core5.http.ClassicHttpRequest;
 import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.Header;
 import org.apache.hc.core5.http.io.entity.ByteArrayEntity;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.springframework.data.util.Pair;
@@ -58,6 +59,13 @@ public class ProxyController {
     try {
       return httpClient.execute(httpRequest, res -> {
         BodyBuilder bodyBuilder = ResponseEntity.status(res.getCode());
+
+        for (Header header : res.getHeaders()) {
+          if (header.getName().startsWith("X-Pulsar")) {
+            bodyBuilder.header(header.getName(), header.getValue());
+          }
+        }
+
         if (res.getEntity() != null) {
           byte[] byteArray = EntityUtils.toByteArray(res.getEntity());
           return bodyBuilder.body(byteArray);

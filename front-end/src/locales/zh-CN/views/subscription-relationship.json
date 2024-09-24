@@ -1,0 +1,9 @@
+{
+  "view.subscription-relationship": "订阅关系",
+  "view.subscription-relationship.topic": "主题",
+  "view.subscription-relationship.subscription": "订阅",
+  "view.subscription-relationship.tenant": "租户",
+  "view.subscription-relationship.namespace": "命名空间",
+  "view.subscription-relationship.sync-complete": "同步完成",
+  "view.subscription-relationship.action.sync": "同步订阅关系"
+}

@@ -193,6 +193,11 @@ const router = createRouter({
           }]
         },
         {
+          path: '/subscription-relationship',
+          name: 'subscription-relationship',
+          component: () => import('@/views/subscription-relationship/SubscriptionRelationshipList.vue')
+        },
+        {
           path: '/users',
           name: 'users',
           component: () => import('@/views/users/UserList.vue')

@@ -10,8 +10,9 @@ const model = ref([
       { label: 'menu.tenant', icon: 'pi pi-sitemap', to: '/tenants' },
       { label: 'menu.namespace', icon: 'pi pi-home', to: '/namespaces' },
       { label: 'menu.topic', icon: 'pi pi-inbox', to: '/topics' },
-      { label: 'menu.client-certificate', icon: 'pi pi-inbox', to: '/client-certificates' },
-      { label: 'menu.client-token', icon: 'pi pi-inbox', to: '/client-tokens' },
+      { label: 'menu.client-certificate', icon: 'pi pi-id-card', to: '/client-certificates' },
+      { label: 'menu.client-token', icon: 'pi pi-ticket', to: '/client-tokens' },
+      { label: 'menu.subscription-relationship', icon: 'pi pi-bell', to: '/subscription-relationship' },
     ]
   },
 
