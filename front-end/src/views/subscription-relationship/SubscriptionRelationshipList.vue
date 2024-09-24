@@ -8,7 +8,7 @@ import { isEmpty, isNull } from '@/util/assert';
 import FormItem from '@/components/FormItem.vue';
 import TenantSelect from '@/views/components/TenantSelect.vue';
 import NamespaceSelect from '@/views/components/NamespaceSelect.vue';
-
+const store = useGlobalStore();
 const data = ref([]);
 const pageable = reactive({
   pageSize: 10,
@@ -16,6 +16,7 @@ const pageable = reactive({
   total: 0
 });
 const query = reactive({
+  instanceId: store.instanceId,
   tenant: null,
   namespace: null,
   subscription: null,
@@ -49,7 +50,7 @@ const goTopic = (fullTopic) => {
   });
 };
 
-const store = useGlobalStore();
+
 const visible = ref(false);
 const tenant = ref();
 const namespace = ref();
@@ -61,9 +62,7 @@ const isProcessing = computed(() => {
 const isProcessingComplete = computed(() => {
   return totalTopics.value > 0 && totalTopics.value === processedTopics.value;
 });
-const progress = computed(() => {
-  return totalTopics.value ? ((processedTopics.value / totalTopics.value) * 100).toFixed(0) : 0;
-});
+
 const showSyncDialog = () => {
   totalTopics.value = 0;
   processedTopics.value = 0;
