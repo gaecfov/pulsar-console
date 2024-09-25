@@ -123,7 +123,7 @@ const showTopicDetail = (topic) => {
         </template>
         <Column field="topic.topicName" :header="$t('view.namespace.analysis.topic')">
           <template #body="{data}">
-            <Button link @click="showTopicStats(data.topic)"
+            <Button link @click="showTopicDetail(data.topic.fullTopic)"
                     :label="data.topic.topicName"></Button>
           </template>
         </Column>
