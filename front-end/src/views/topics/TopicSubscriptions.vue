@@ -93,6 +93,9 @@ const expirySubscription = (sub) => {
                 <Tag v-if="item.durable" severity="secondary">Durable</Tag>
                 <Tag v-if="isOnline(item)" severity="success">Online</Tag>
                 <Tag v-else severity="warn">Offline</Tag>
+                <Tag v-if="item.blockedSubscriptionOnUnackedMsgs" severity="warn"
+                     icon="pi pi-exclamation-triangle">Blocked
+                </Tag>
               </div>
             </template>
             <div class="flex flex-col gap-4">
@@ -118,14 +121,17 @@ const expirySubscription = (sub) => {
                             icon="pi pi-inbox dark:bg-blue-500 bg-blue-200">
 
                 </MetricCard>
-                <MetricCard title="view.topic.subscription.messageAckRate" :value="formatRate(item.messageAckRate)"
+                <MetricCard title="view.topic.subscription.messageAckRate"
+                            :value="formatRate(item.messageAckRate)"
                             icon="pi pi-check dark:bg-green-500 bg-green-200">
                 </MetricCard>
 
-                <MetricCard title="view.topic.subscription.unackedMessages" :value="item.unackedMessages"
+                <MetricCard title="view.topic.subscription.unackedMessages"
+                            :value="item.unackedMessages"
                             icon="pi pi-hourglass dark:bg-orange-500 bg-orange-200">
                 </MetricCard>
-                <MetricCard title="view.topic.subscription.msgOutCounter" :value="item.msgOutCounter"
+                <MetricCard title="view.topic.subscription.msgOutCounter"
+                            :value="item.msgOutCounter"
                             icon="pi pi-upload dark:bg-pink-500 bg-pink-200">
                 </MetricCard>
                 <MetricCard title="view.topic.subscription.msgDelayed" :value="item.msgDelayed"
