@@ -9,12 +9,12 @@ export const listTopics = (tenant, namespace) => {
 };
 
 export const createNonPartitionedTopic = (persistence, tenant, namespace,
-                                          topic) => {
+  topic) => {
   return adminApi.put(`/${persistence}/${tenant}/${namespace}/${topic}`);
 };
 
 export const createPartitionedTopic = (persistence, tenant, namespace, topic,
-                                       num) => {
+  num) => {
   return adminApi.put(
     `/${persistence}/${tenant}/${namespace}/${topic}/partitions`, num);
 };
@@ -85,7 +85,8 @@ export const putPolicy = (topic, policyName, policy, params) => {
 
 export const removePolicy = (topic, policyName, params) => {
   return adminApi.delete(
-    `/${topic.persistence}/${topic.tenant}/${topic.namespace}/${topic.humanTopicName}/${policyName}`, {
+    `/${topic.persistence}/${topic.tenant}/${topic.namespace}/${topic.humanTopicName}/${policyName}`,
+    {
       params
     });
 };
@@ -125,7 +126,13 @@ export const peekMessages = (topic, subName, num) => {
     `/${topic.persistence}/${topic.tenant}/${topic.namespace}/${topic.topicName}/subscription/${subName}/position/${num}`);
 };
 
-export const getSubscriptions = (topic)=>{
+export const getSubscriptions = (topic) => {
   return adminApi.get(
     `/${topic.persistence}/${topic.tenant}/${topic.namespace}/${topic.topicName}/subscriptions`);
-}
+};
+
+export const incrementPartitions = (topic, num, params) => {
+  return adminApi.post(
+    `/${topic.persistence}/${topic.tenant}/${topic.namespace}/${topic.topicName}/partitions`,
+    num, { params });
+};

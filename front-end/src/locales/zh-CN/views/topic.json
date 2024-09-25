@@ -40,7 +40,8 @@
   "view.topic.peek.producerName": "生产者",
   "view.topic.peek.publishTime": "发布时间",
   "view.topic.peek.batchSize": "批次大小",
-  "view.topic.peek.numBatchMessage": "批次消息数",
+  "view.topic.updateLocalTopicOnly": "只在本地更新",
+  "view.topic.force": "强制",
   "view.topic.action.new-topic": "新建主题",
   "view.topic.action.recent": "最近主题",
   "view.topic.action.delete": "删除",
@@ -56,6 +57,7 @@
   "view.topic.action.expiry": "过期过期",
   "view.topic.action.expiry-all": "全部过期",
   "view.topic.action.split": "拆分",
+  "view.topic.action.increment": "增加分区",
   "view.topic.error.name": "主题名称不能为空",
   "view.topic.error.tenant": "租户不能为空",
   "view.topic.error.namespace": "命名空间不能为空"

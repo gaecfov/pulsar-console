@@ -41,6 +41,8 @@
   "view.topic.peek.publishTime": "Publish Time",
   "view.topic.peek.batchSize": "Batch Size",
   "view.topic.peek.numBatchMessage": "Batch Message Num",
+  "view.topic.updateLocalTopicOnly": "Update Local Topic Only",
+  "view.topic.force": "Force",
   "view.topic.action.new-topic": "New Topic",
   "view.topic.action.delete": "Delete",
   "view.topic.action.unload": "Unload",
