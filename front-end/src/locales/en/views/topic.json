@@ -31,6 +31,7 @@
   "view.topic.subscription.messageAckRate": "Ack Rate",
   "view.topic.subscription.unackedMessages": "Unacked",
   "view.topic.subscription.msgOutCounter": "Out Counter",
+  "view.topic.subscription.msgDelayed": "Delayed",
   "view.topic.consumer.availablePermits": "Available Permits",
   "view.topic.consumer.messageAckRate": "Ack Rate",
   "view.topic.consumer.unackedMessages": "Unacked",

@@ -31,6 +31,7 @@
   "view.topic.subscription.messageAckRate": "确认速率",
   "view.topic.subscription.unackedMessages": "待确认消息数",
   "view.topic.subscription.msgOutCounter": "流出消息总数",
+  "view.topic.subscription.msgDelayed": "延迟消息数",
   "view.topic.consumer.availablePermits": "可用许可数",
   "view.topic.consumer.messageAckRate": "确认速率",
   "view.topic.consumer.unackedMessages": "待确认消息数",

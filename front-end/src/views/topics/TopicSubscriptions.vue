@@ -113,7 +113,7 @@ const expirySubscription = (sub) => {
                   </div>
                 </template>
               </Toolbar>
-              <div class="grid grid-cols-4 gap-4">
+              <div class="grid grid-cols-5 gap-4">
                 <MetricCard title="view.topic.subscription.msgBacklog" :value="item.msgBacklog"
                             icon="pi pi-inbox dark:bg-blue-500 bg-blue-200">
 
@@ -127,6 +127,9 @@ const expirySubscription = (sub) => {
                 </MetricCard>
                 <MetricCard title="view.topic.subscription.msgOutCounter" :value="item.msgOutCounter"
                             icon="pi pi-upload dark:bg-pink-500 bg-pink-200">
+                </MetricCard>
+                <MetricCard title="view.topic.subscription.msgDelayed" :value="item.msgDelayed"
+                            icon="pi pi-clock dark:bg-violet-500 bg-violet-200">
                 </MetricCard>
               </div>
               <Panel v-if="isOnline(item)" :header="$t('view.topic.consumers')" toggleable
