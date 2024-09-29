@@ -32,6 +32,8 @@
   "view.topic.subscription.unackedMessages": "Unacked",
   "view.topic.subscription.msgOutCounter": "Out Counter",
   "view.topic.subscription.msgDelayed": "Delayed",
+  "view.topic.subscription.reset-cursor": "Reset Cursor",
+  "view.topic.subscription.reset-cursor-timestamp": "Timestamp",
   "view.topic.consumer.availablePermits": "Available Permits",
   "view.topic.consumer.messageAckRate": "Ack Rate",
   "view.topic.consumer.unackedMessages": "Unacked",
@@ -59,6 +61,7 @@
   "view.topic.action.expiry": "Expiry",
   "view.topic.action.expiry-all": "Expiry All",
   "view.topic.action.split": "Split",
+  "view.topic.action.reset-cursor": "Reset Cursor",
   "view.topic.error.name": "Name required",
   "view.topic.error.tenant": "Tenant required",
   "view.topic.error.namespace": "Namespace required"

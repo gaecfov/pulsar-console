@@ -126,6 +126,11 @@ export const peekMessages = (topic, subName, num) => {
     `/${topic.persistence}/${topic.tenant}/${topic.namespace}/${topic.topicName}/subscription/${subName}/position/${num}`);
 };
 
+export const resetCursorWithTimestamp = (topic, subName, timestamp) => {
+  return adminApi.post(
+    `/${topic.persistence}/${topic.tenant}/${topic.namespace}/${topic.topicName}/subscription/${subName}/resetcursor/${timestamp}`);
+};
+
 export const getSubscriptions = (topic) => {
   return adminApi.get(
     `/${topic.persistence}/${topic.tenant}/${topic.namespace}/${topic.topicName}/subscriptions`);

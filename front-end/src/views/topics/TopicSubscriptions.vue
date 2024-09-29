@@ -8,6 +8,7 @@ import { formatRate } from '@/util/formatter';
 import ConfirmButton from '@/components/ConfirmButton.vue';
 import TopicPeekMessages from '@/views/topics/TopicPeekMessages.vue';
 
+const { t } = useI18n();
 const stats = inject('topic-stats');
 const topic = inject('topic');
 const subscriptions = computed(() => {
@@ -55,6 +56,30 @@ const expirySubscription = (sub) => {
     toastUtil.success();
   });
 };
+
+const resetCursorTimestamp = ref();
+const confirmResetCursor = (event, sub) => {
+  confirm.require({
+    group: 'resetCursorTimestamp',
+    header: t('view.topic.subscription.reset-cursor'),
+    message: 'Please confirm to proceed moving forward.',
+    accept: () => {
+      if (resetCursorTimestamp.value) {
+        ts.resetCursorWithTimestamp(topic.value, sub.subscription,
+          resetCursorTimestamp.value.getTime()).then(() => {
+          toastUtil.success();
+        });
+      }
+      resetCursorTimestamp.value = null;
+    }
+  });
+};
+
+const stopEvent = (event) => {
+  console.log(event, 'stop');
+  event.stopPropagation();
+  event.preventDefault();
+};
 </script>
 
 <template>
@@ -72,6 +97,17 @@ const expirySubscription = (sub) => {
       </div>
     </template>
   </ConfirmPopup>
+  <ConfirmDialog group="resetCursorTimestamp">
+    <template #message>
+      <div class="flex-auto p-4">
+        <label for="resetCursorTimestamp" class="font-bold block mb-2"> {{
+            $t('view.topic.subscription.reset-cursor-timestamp')
+          }} </label>
+        <DatePicker @click="stopEvent" v-model="resetCursorTimestamp" show-time hourFormat="24"
+                    showIcon show-seconds inputId="resetCursorTimestamp" fluid appendTo="body" />
+      </div>
+    </template>
+  </ConfirmDialog>
   <div class="flex flex-col gap-4">
     <Toolbar>
       <template #start>
@@ -104,6 +140,9 @@ const expirySubscription = (sub) => {
                   <div class="flex gap-2">
                     <Button icon="pi pi-eye" :label="$t('view.topic.action.peek')" size="small"
                             @click="showPeekMessages(item)"></Button>
+                    <Button icon="pi pi-history" :label="$t('view.topic.action.reset-cursor')"
+                            size="small"
+                            @click="confirmResetCursor($event, item)"></Button>
                     <Button icon="pi pi-forward" :label="$t('view.topic.action.skip')" size="small"
                             @click="confirmSkipMessage($event, item)"></Button>
                     <ConfirmButton icon="pi pi-fast-forward"

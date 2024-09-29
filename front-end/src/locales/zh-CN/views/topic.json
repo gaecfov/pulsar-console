@@ -32,6 +32,8 @@
   "view.topic.subscription.unackedMessages": "待确认消息数",
   "view.topic.subscription.msgOutCounter": "流出消息总数",
   "view.topic.subscription.msgDelayed": "延迟消息数",
+  "view.topic.subscription.reset-cursor": "重置消费位点",
+  "view.topic.subscription.reset-cursor-timestamp": "消费位点",
   "view.topic.consumer.availablePermits": "可用许可数",
   "view.topic.consumer.messageAckRate": "确认速率",
   "view.topic.consumer.unackedMessages": "待确认消息数",
@@ -59,6 +61,7 @@
   "view.topic.action.expiry-all": "全部过期",
   "view.topic.action.split": "拆分",
   "view.topic.action.increment": "增加分区",
+  "view.topic.action.reset-cursor": "重置位点",
   "view.topic.error.name": "主题名称不能为空",
   "view.topic.error.tenant": "租户不能为空",
   "view.topic.error.namespace": "命名空间不能为空"
