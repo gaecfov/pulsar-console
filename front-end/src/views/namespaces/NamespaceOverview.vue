@@ -95,10 +95,10 @@ const deleteNamespace = () => {
         <template #start>
           <div class="flex gap-4">
             <ConfirmButton icon="pi pi-sync" :label="$t('view.namespace.action.unload-all')"
-                           @click="unloadAll"></ConfirmButton>
+                           @confirm="unloadAll"></ConfirmButton>
             <ConfirmButton icon="pi pi-times"
                            :label="$t('view.namespace.action.clear-all-backlog')"
-                           @click="cleanAllBacklog"></ConfirmButton>
+                           @confirm="cleanAllBacklog"></ConfirmButton>
           </div>
         </template>
       </Toolbar>
