@@ -65,6 +65,11 @@ public class ProxyController {
             bodyBuilder.header(header.getName(), header.getValue());
           }
         }
+        Header contentType = res.getHeader("Content-Type");
+
+        if (contentType != null) {
+          bodyBuilder.header("Content-Type", contentType.getValue());
+        }
 
         if (res.getEntity() != null) {
           byte[] byteArray = EntityUtils.toByteArray(res.getEntity());
