@@ -91,7 +91,7 @@ const stopEvent = (event) => {
     <template #message>
       <div class="flex-auto p-4">
         <label for="skipNum" class="font-bold block mb-2"> {{
-            $t('view.topic.subscription.skip-num"')
+            $t('view.topic.subscription.skip-num')
           }} </label>
         <InputNumber v-model="skipNum" inputId="skipNum" fluid />
       </div>
