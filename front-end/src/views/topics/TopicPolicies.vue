@@ -1,9 +1,10 @@
 <script setup>
-import {deletePartitions, terminatePartitions, unload} from '@/service/TopicService';
+import { deletePartitions, terminatePartitions } from '@/service/TopicService';
 import toastUtil from '@/util/toast-util';
 import ConfirmButton from '@/components/ConfirmButton.vue';
-import TopicCleanup from "@/views/topics/TopicCleanup.vue";
-import TopicBacklogQuota from "@/views/topics/TopicBacklogQuota.vue";
+import TopicCleanup from '@/views/topics/TopicCleanup.vue';
+import TopicBacklogQuota from '@/views/topics/TopicBacklogQuota.vue';
+import TopicDispatchRate from '@/views/topics/TopicDispatchRate.vue';
 
 const topic = inject('topic');
 </script>
@@ -24,5 +25,6 @@ const topic = inject('topic');
 
     <TopicCleanup></TopicCleanup>
     <TopicBacklogQuota></TopicBacklogQuota>
+    <TopicDispatchRate></TopicDispatchRate>
   </div>
 </template>
