@@ -7,6 +7,7 @@ import toastUtil from '@/util/toast-util';
 import { formatRate } from '@/util/formatter';
 import ConfirmButton from '@/components/ConfirmButton.vue';
 import TopicPeekMessages from '@/views/topics/TopicPeekMessages.vue';
+import ConfirmDeleteButton from '@/components/ConfirmDeleteButton.vue';
 
 const { t } = useI18n();
 const stats = inject('topic-stats');
@@ -80,6 +81,13 @@ const stopEvent = (event) => {
   event.stopPropagation();
   event.preventDefault();
 };
+
+const deleteSubscription = (sub) => {
+  ts.deleteSubscription(topic.value, sub.subscription).then(() => {
+    delete stats.value.subscriptions[sub.subscription];
+    toastUtil.success();
+  });
+};
 </script>
 
 <template>
@@ -138,6 +146,9 @@ const stopEvent = (event) => {
               <Toolbar>
                 <template #start>
                   <div class="flex gap-2">
+                    <ConfirmDeleteButton :label="$t('action.delete')" size="small"
+                                         @confirm="deleteSubscription(item)">
+                    </ConfirmDeleteButton>
                     <Button icon="pi pi-eye" :label="$t('view.topic.action.peek')" size="small"
                             @click="showPeekMessages(item)"></Button>
                     <Button icon="pi pi-history" :label="$t('view.topic.action.reset-cursor')"

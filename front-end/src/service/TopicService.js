@@ -141,3 +141,8 @@ export const incrementPartitions = (topic, num, params) => {
     `/${topic.persistence}/${topic.tenant}/${topic.namespace}/${topic.topicName}/partitions`,
     num, { params });
 };
+
+export const deleteSubscription = (topic, subName) => {
+  return adminApi.delete(
+    `/${topic.persistence}/${topic.tenant}/${topic.namespace}/${topic.topicName}/subscription/${subName}`);
+};
