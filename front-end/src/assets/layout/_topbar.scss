@@ -1,3 +1,5 @@
+@use 'mixins';
+
 .layout-topbar {
   position: fixed;
   height: 4rem;
@@ -31,7 +33,7 @@
     }
 
     &:focus-visible {
-      @include focused();
+      @include mixins.focused();
     }
   }
 
@@ -51,7 +53,7 @@
     }
 
     &:focus-visible {
-      @include focused();
+      @include mixins.focused();
     }
 
     i {

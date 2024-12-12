@@ -11,6 +11,13 @@ export default defineConfig({
     outDir: '../src/main/resources/static',
     emptyOutDir: true
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler'
+      }
+    }
+  },
   optimizeDeps: {
     noDiscovery: true
   },

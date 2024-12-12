@@ -301,6 +301,13 @@
     "watchTriggerable": true,
     "watchWithFilter": true,
     "whenever": true,
-    "useI18n": true
+    "useI18n": true,
+    "DirectiveBinding": true,
+    "MaybeRef": true,
+    "MaybeRefOrGetter": true,
+    "onWatcherCleanup": true,
+    "useId": true,
+    "useModel": true,
+    "useTemplateRef": true
   }
 }
