@@ -27,6 +27,7 @@
   "view.topic.storage.storageSize": "Storage Size",
   "view.topic.storage.numberOfEntries": "Entries",
   "view.topic.subscription.skip-num": "Skip Messages",
+  "view.topic.subscription.expireTimeInSeconds": "Expire Time In Seconds",
   "view.topic.subscription.msgBacklog": "Backlog",
   "view.topic.subscription.messageAckRate": "Ack Rate",
   "view.topic.subscription.unackedMessages": "Unacked",

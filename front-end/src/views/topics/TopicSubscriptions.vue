@@ -52,15 +52,34 @@ const showPeekMessages = (sub) => {
   peekVisible.value = true;
 };
 
-const expirySubscription = (sub) => {
-  ts.expiryMessages(topic.value, sub.subscription).then(() => {
-    toastUtil.success();
+const expirySeconds = ref(60);
+const confirmExpirySubscription = (event, sub) => {
+  confirm.require({
+    target: event.currentTarget,
+    group: 'expiryMessages',
+    accept: () => {
+      ts.expiryMessages(topic.value, sub.subscription, expirySeconds.value).then(() => {
+        toastUtil.success();
+      });
+    }
+  });
+};
+const confirmExpiryAllMessages = (event) => {
+  confirm.require({
+    target: event.currentTarget,
+    group: 'expiryMessages',
+    accept: () => {
+      ts.expiryAllMessages(topic.value, expirySeconds.value).then(() => {
+        toastUtil.success();
+      });
+    }
   });
 };
 
 const resetCursorTimestamp = ref();
 const confirmResetCursor = (event, sub) => {
   confirm.require({
+    target: event.currentTarget,
     group: 'resetCursorTimestamp',
     header: t('view.topic.subscription.reset-cursor'),
     message: 'Please confirm to proceed moving forward.',
@@ -77,7 +96,6 @@ const confirmResetCursor = (event, sub) => {
 };
 
 const stopEvent = (event) => {
-  console.log(event, 'stop');
   event.stopPropagation();
   event.preventDefault();
 };
@@ -95,6 +113,16 @@ const deleteSubscription = (sub) => {
           :header="$t('view.topic.action.peek')">
     <TopicPeekMessages :topic="topic" :subscription="currentSubscription"></TopicPeekMessages>
   </Drawer>
+  <ConfirmPopup group="expiryMessages">
+    <template #message>
+      <div class="flex-auto p-4">
+        <label for="skipNum" class="font-bold block mb-2"> {{
+            $t('view.topic.subscription.expireTimeInSeconds')
+          }} </label>
+        <InputNumber v-model="expirySeconds" inputId="skipNum" min="1" fluid />
+      </div>
+    </template>
+  </ConfirmPopup>
   <ConfirmPopup group="skipMessages">
     <template #message>
       <div class="flex-auto p-4">
@@ -120,9 +148,9 @@ const deleteSubscription = (sub) => {
     <Toolbar>
       <template #start>
         <div class="flex gap-2">
-          <ConfirmButton size="small" icon="pi pi-clock" severity="danger"
-                         @confirm="ts.expiryAllMessages(topic,0).then(()=>toastUtil.success())"
-                         :label="$t('view.topic.action.expiry-all')"></ConfirmButton>
+          <Button size="small" icon="pi pi-clock" severity="danger"
+                  @click="confirmExpiryAllMessages"
+                  :label="$t('view.topic.action.expiry-all')"></Button>
         </div>
       </template>
     </Toolbar>
@@ -159,9 +187,9 @@ const deleteSubscription = (sub) => {
                     <ConfirmButton icon="pi pi-fast-forward"
                                    :label="$t('view.topic.action.skip-all')" size="small"
                                    @confirm="confirmSkipAllMessage(item)"></ConfirmButton>
-                    <ConfirmButton size="small" icon="pi pi-clock"
-                                   @confirm="expirySubscription(item)"
-                                   :label="$t('view.topic.action.expiry-all')"></ConfirmButton>
+                    <Button size="small" icon="pi pi-clock"
+                            @click="confirmExpirySubscription($event,item)"
+                            :label="$t('view.topic.action.expiry')"></Button>
 
                   </div>
                 </template>
