@@ -37,8 +37,7 @@ const deduplication = useNamespacePolicy('deduplication',
         </template>
         <div class="grid grid-cols-4 gap-4">
           <FormItem title="view.components.bookkeeperEnsemble">
-            <InputNumber v-model="persistence.policyValue.value.bookkeeperEnsemble" show-buttons
-                         :suffix="$t('megabyte')">
+            <InputNumber v-model="persistence.policyValue.value.bookkeeperEnsemble" show-buttons>
             </InputNumber>
           </FormItem>
           <FormItem title="view.components.bookkeeperWriteQuorum">
